@@ -1,5 +1,5 @@
 {
-  "name": "streamelements-widget-hub",
+  "name": "streamelements-widgets",
   "private": true,
   "workspaces": ["packages/*"],
   "scripts": {
