@@ -28,7 +28,7 @@
     ├─ turbo.json
     ├─ .gitignore
     ├─ .changeset
-    ├─ .LICENSE
+    ├─ LICENSE
     └─ README.md
 
 ------------------------------------------------------------------------
