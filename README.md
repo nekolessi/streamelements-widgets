@@ -13,22 +13,22 @@
 
     streamelements-widgets/
     ├─ packages/
-    │  ├─ chat-bubbles/
-    │  │  ├─ src/               # widget.html / widget.css / widget.js / assets
-    │  │  ├─ demo/              # local preview pages
-    │  │  ├─ manifest.json      # documented fields + defaults
+    │  ├─ chat-bubbles/     # widget.html / widget.css / widget.js / assets
+    │  │  ├─ src/           # core widget source
+    │  │  ├─ demo/          # local preview pages
+    │  │  ├─ manifest.json  # documented fields + defaults
     │  │  ├─ README.md
-    │  │  └─ dist/              # build output: <id>-v<version>.zip
+    │  │  └─ dist/          # build output: <id>-<version>.zip
     │  └─ ...
-    ├─ docs/                    # optional: GH Pages previews
-    ├─ scripts/                 # build helpers (e.g., build-zip.mjs)
-    ├─ .github/workflows/       # CI for building & releasing zips
-    ├─ package.json             # workspaces + root scripts
-    ├─ pnpm-workspace.yaml
+    ├─ docs/                # optional: GH Pages previews
+    ├─ scripts/             # build helpers (e.g., build-zip.mjs)
+    ├─ .github/workflows/   # CI for building & releasing zips
+    ├─ package.json
+    ├─ pnpm-workspace.yaml  # workspaces + root scripts
     ├─ turbo.json
     ├─ .gitignore
     ├─ .changeset
-    ├─ .LICENSE
+    ├─ LICENSE
     └─ README.md
 
 ------------------------------------------------------------------------
@@ -41,13 +41,13 @@ cd streamelements-widgets
 pnpm install
 ```
 
-To peek at each widget while you’re tweaking:
+Run a widget locally (example: chat bubbles):
 
 ```bash
 pnpm --filter @nekolessi/chat-bubbles dev
 ```
 
-Make, build, and import:
+Build all widgets into `.zip` bundles:
 
 ```bash
 pnpm build
@@ -59,40 +59,22 @@ Then drop the `.zip` from `packages/<widget>/dist/` into **StreamElements → Ov
 
 ##  Dev Flow & CI Magic
 
-- **Version bump & changelogs** → `pnpm changeset` → `pnpm changeset version`
-  - Automatic version branch PR available via workflow  
-- **Release zips** on `push main` via CI → GitHub Release with widget packages  
-- **GitHub Pages** → widget demos auto-published under `docs/`  
-- **Publish to npm** → tag release (`vX.Y.Z`) → CI runs `pnpm changeset publish` using `NPM_TOKEN` secret
+- **GitHub Actions** auto-build & release zips when pushing to `main`.  
+- **Pages**: widget demos published from `docs/`.  
+- **Changesets**: version bump & changelogs across all widgets.  
+- **Publish to npm**: tag `vX.Y.Z` and Actions will run `pnpm changeset publish`.
 
 ------------------------------------------------------------------------
 
 ##  Widget Conventions (nya~ cuteness inside)
 
-Each widget includes:
+Each widget follows:
 
-- `src/` → core files (`widget.html`, `widget.css`, `widget.js`)  
-- `manifest.json` → defines `id`, `version`, `preview`, and editor `fields`  
-- `demo/index.html` → local preview harness with mocked SE events  
-- `README.md` → quick start, field summary, and neko notes  
-
-`manifest.json` example for **Chat Bubbles**:
-
-```json
-{
-  "name": "Chat Bubbles",
-  "id": "chat-bubbles",
-  "version": "0.1.0",
-  "description": "Cute neko-styled chat bubbles widget",
-  "author": "nekolessi",
-  "fields": [
-    { "key": "theme", "type": "select", "options": ["light","dark"], "default": "dark" },
-    { "key": "fontSize", "type": "number", "min": 10, "max": 64, "default": 24 },
-    { "key": "ignoredUsers", "type": "string", "default": "" }
-  ],
-  "preview": "demo/index.html"
-}
-```
+- `src/` → HTML, CSS, JS  
+- `manifest.json` → id, version, fields, preview  
+- `demo/` → standalone local preview  
+- `dist/` → output zips  
+- `README.md` → widget-specific guide  
 
 ------------------------------------------------------------------------
 
