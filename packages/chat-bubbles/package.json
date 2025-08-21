@@ -1,31 +1,37 @@
-{
-  "name": "@nekolessi/chat-bubbles",
-  "version": "0.1.0",
-  "description": "Cute neko-styled chat bubbles widget for StreamElements overlays.",
-  "author": "nekolessi",
-  "license": "MIT",
-  "main": "src/index.js",
-  "files": [
-    "dist",
-    "src",
-    "manifest.json",
-    "README.md"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "twitch",
-    "streamelements",
-    "widget",
-    "chat",
-    "bubbles",
-    "neko"
-  ],
-  "scripts": {
-    "build": "node ../../scripts/build-zip.mjs",
-    "dev": "echo 'Start dev server here (e.g., vite) for widget preview'"
-  },
-  "dependencies": {},
-  "devDependencies": {}
-}
+diff --git a/packages/chat-bubbles/package.json b/packages/chat-bubbles/package.json
+index eac7a72a1fbfe379b61b770daa2d6fd39a766642..eb4c58bbe29abca31127502125fb3c79c50a61f3 100644
+--- a/packages/chat-bubbles/package.json
++++ b/packages/chat-bubbles/package.json
+@@ -1,31 +1,31 @@
+ {
+   "name": "@nekolessi/chat-bubbles",
+   "version": "0.1.0",
+   "description": "Cute neko-styled chat bubbles widget for StreamElements overlays.",
+   "author": "nekolessi",
+   "license": "MIT",
+-  "main": "src/index.js",
++  "main": "src/widget.js",
+   "files": [
+     "dist",
+     "src",
+     "manifest.json",
+     "README.md"
+   ],
+   "publishConfig": {
+     "access": "public"
+   },
+   "keywords": [
+     "twitch",
+     "streamelements",
+     "widget",
+     "chat",
+     "bubbles",
+     "neko"
+   ],
+   "scripts": {
+     "build": "node ../../scripts/build-zip.mjs",
+     "dev": "echo 'Start dev server here (e.g., vite) for widget preview'"
+   },
+   "dependencies": {},
+   "devDependencies": {}
+ }
