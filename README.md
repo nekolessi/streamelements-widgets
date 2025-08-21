@@ -112,4 +112,4 @@ StreamElements. ✨
 
 ## 💖 License
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) © Neko Devs (aka nekolessi) — steal responsibly (with credit!), remix with neko energy, just keep it fluffy 🐾
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) © Neko Devs (aka nekolessi) — steal responsibly (with credit!), just keep it fluffy 🐾
