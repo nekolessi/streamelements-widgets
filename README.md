@@ -232,4 +232,4 @@ or download them from the latest GitHub Release (if CI is enabled).
 
 ## License
 
-MIT © Neko
+MIT © You
