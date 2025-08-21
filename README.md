@@ -1,4 +1,4 @@
-# StreamElements Custom Widgets -- Monorepo (Neko Edition) 🐾ฅ^•ﻌ•^ฅ
+# StreamElements Custom Widgets (Neko Edition) 🐾ฅ^•ﻌ•^ฅ
 
 [![Branch:
 main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)\
@@ -12,7 +12,7 @@ MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
 ------------------------------------------------------------------------
 
-## 🐾 Repo Layout (nya\~)
+## 🐾 Repo Layout
 
     streamelements-widgets/
     ├─ packages/
@@ -33,7 +33,7 @@ MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
 ------------------------------------------------------------------------
 
-## 🐱 Quick Start (nya\~ meow!)
+## 🐱 Quick Start
 
 1.  **Install dependencies** 🐾
 
@@ -62,7 +62,7 @@ MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
 ------------------------------------------------------------------------
 
-## ✨ Widget Conventions (nya\~)
+## ✨ Widget Conventions
 
 -   `src/widget.html`, `src/widget.css`, `src/widget.js` -- core files.\
 -   `manifest.json` -- schema for your widget's field options (keeps
@@ -106,7 +106,7 @@ you can play-test like a curious kitty 🐱:
 
 ------------------------------------------------------------------------
 
-## 🐾 CI / GitHub Actions (auto-magic nya\~)
+## 🐾 CI / GitHub Actions (auto-magic)
 
 On push to `main`, neko magic builds zips automatically (if CI is set
 up). Example workflow:
@@ -133,7 +133,7 @@ jobs:
 
 ------------------------------------------------------------------------
 
-## 😺 FAQ (meow meow\~)
+## 😺 FAQ
 
 **Q:** Can I test widgets without going live?\
 **A:** Yes, nya! Just run the demo HTML locally and play with it. 🐾
