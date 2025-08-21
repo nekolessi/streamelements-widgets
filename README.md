@@ -236,4 +236,4 @@ running `pnpm --filter <pkg> dev`.
 
 ## License
 
-MIT © You
+MIT © NEKOLESSI
