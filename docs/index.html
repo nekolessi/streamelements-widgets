@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StreamElements Widget Hub · Docs</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; line-height: 1.6; }
+    header { margin-bottom: 2rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .card { border: 1px solid #e5e7eb; border-radius: 16px; padding: 1rem 1.2rem; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .card h3 { margin: 0.2rem 0 0.6rem; }
+    code, pre { background: #f6f8fa; border-radius: 8px; padding: 0.2rem 0.4rem; }
+    footer { margin-top: 3rem; font-size: 0.9rem; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>StreamElements Widget Hub · Docs</h1>
+    <p>GitHub Pages landing page. After pushing to <code>main</code>, enable Pages with source <strong>GitHub Actions</strong> or <strong>docs/</strong>,
+    and list your widget demos here.</p>
+  </header>
+
+  <section class="grid">
+    <div class="card">
+      <h3>Chat Bubbles (demo)</h3>
+      <p>Serve locally while developing:</p>
+      <pre><code>pnpm --filter @nekolessi/chat-bubbles dev</code></pre>
+      <p>For Pages, copy the demo build to <code>docs/chat-bubbles/</code> in CI.</p>
+    </div>
+
+    <div class="card">
+      <h3>How to add a new demo</h3>
+      <ol>
+        <li>Create <code>packages/&lt;id&gt;/demo/</code></li>
+        <li>CI copies <code>demo/</code> into <code>docs/&lt;id&gt;/</code></li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made with ♥ for <em>nekolessi/StreamElements-widget-hub</em></p>
+  </footer>
+</body>
+</html>
