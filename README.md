@@ -80,15 +80,23 @@ Each widget follows:
 
 ## 😺 FAQ
 
-**Q:** Can I test widgets without going live?\
-**A:** Yes, nya! Just run the demo HTML locally and play with it. 🐾
+**Q: Do I need pnpm to use this repo?**  
+A: Yes~! This monorepo is set up with pnpm workspaces. Make sure you install [pnpm](https://pnpm.io/) before running commands.
 
-**Q:** Where do my built widgets go?\
-**A:** They curl up into the `dist/` folder, waiting to be imported into
-StreamElements. ✨
+**Q: How do I add a new widget?**  
+A: Create a folder under `packages/`, add `src/`, `manifest.json`, and `demo/`. Run `pnpm build` to generate its zip.
 
-**Q:** Is this repo neko-approved?\
-**A:** Absolutely. ฅ^•ﻌ•^ฅ nya\~
+**Q: Where do the built zips go?**  
+A: Each widget outputs to its own `dist/` folder (e.g. `packages/chat-bubbles/dist/`).
+
+**Q: Can I customize widget fields in StreamElements?**  
+A: Yep! Fields are defined in `manifest.json`. They’ll show up in the StreamElements overlay editor.
+
+**Q: How do updates get released?**  
+A: Make a changeset with `pnpm changeset`, merge to `main`, and GitHub Actions will handle versioning + releases.
+
+**Q: Can I fork and make my own neko widgets?**  
+A: Of course~! It’s MIT licensed. Just keep the neko spirit alive 🐾.
 
 ------------------------------------------------------------------------
 
