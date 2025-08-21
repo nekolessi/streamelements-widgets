@@ -1,3 +1,8 @@
+     ／l、
+   （ﾟ､ ｡７
+     l、 ~ヽ
+     じしf_, )ノ   nya~ welcome to my widgets hub!
+
 # StreamElements Custom Widgets (Neko Edition) 🐾
 
 [![Branch:main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)  [![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
