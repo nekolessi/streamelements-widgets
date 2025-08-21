@@ -1,0 +1,9 @@
+{
+  "name": "@nekolessi/chat-bubbles",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "build": "node ../../scripts/build-zip.mjs",
+    "dev": "vite --open demo/index.html"
+  }
+}
