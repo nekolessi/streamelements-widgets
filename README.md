@@ -29,6 +29,8 @@ MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
     ├─ .github/workflows/       # CI for building & releasing zips
     ├─ package.json             # workspaces + root scripts
     ├─ pnpm-workspace.yaml
+    ├─ turbo.json
+    ├─ .gitignore
     └─ README.md
 
 ------------------------------------------------------------------------
