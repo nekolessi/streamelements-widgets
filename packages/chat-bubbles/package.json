@@ -4,7 +4,6 @@
    "description": "Cute neko-styled chat bubbles widget for StreamElements overlays.",
    "author": "nekolessi",
    "license": "MIT",
-   "main": "src/widget.js",
    "files": [
      "dist",
      "src",
