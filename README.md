@@ -151,4 +151,4 @@ StreamElements. ✨
 
 ## 💖 License
 
-MIT © Neko Devs 🐾
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) MIT © nekolessi 🐾
