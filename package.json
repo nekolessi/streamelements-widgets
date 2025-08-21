@@ -5,14 +5,14 @@
   "scripts": {
     "build": "turbo run build",
     "lint": "eslint .",
-    "lint:fix": "eslint . --ext .js,.mjs --fix"
+    "lint:fix": "eslint . --ext .js,.mjs --fix",
     "release": "changeset version && changeset publish"
   },
   "devDependencies": {
     "eslint": "^9.0.0",
     "@eslint/js": "^9.0.0",
     "eslint-plugin-import": "^2.29.1",
-    "globals": "^15.0.0"
+    "globals": "^15.0.0",
     "prettier": "^3.0.0",
     "turbo": "^2.0.0",
     "@changesets/cli": "^2.27.0",
