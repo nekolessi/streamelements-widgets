@@ -1,0 +1,31 @@
+{
+  "name": "@nekolessi/nyan-sub-goal",
+  "version": "0.1.0",
+  "description": "Nyan-powered subscriber goal progress bar with playful catgirl theme.",
+  "author": "nekolessi",
+  "license": "MIT",
+  "main": "src/index.js",
+  "files": [
+    "dist",
+    "src",
+    "manifest.json",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "twitch",
+    "streamelements",
+    "widget",
+    "sub-goal",
+    "nyan",
+    "catgirl"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/build-zip.mjs",
+    "dev": "echo 'Start dev server here (e.g., vite) for widget preview'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
