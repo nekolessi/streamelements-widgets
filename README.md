@@ -22,8 +22,7 @@ MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
     │  │  ├─ manifest.json      # documented fields + defaults
     │  │  ├─ README.md
     │  │  └─ dist/              # build output: <id>-v<version>.zip
-    │  └─ tip-feed/
-    │     └─ ...
+    │  └─ ...
     ├─ docs/                    # optional: GH Pages previews
     ├─ scripts/                 # build helpers (e.g., build-zip.mjs)
     ├─ .github/workflows/       # CI for building & releasing zips
