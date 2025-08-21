@@ -1,7 +1,7 @@
 # StreamElements Custom Widgets -- Monorepo
 
 [![Branch:
-main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)
+main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)\
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
@@ -14,10 +14,10 @@ MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
 **One click:**\
 **[Download the entire repo @ main
-(ZIP)](https://github.com/USERNAME/REPO/archive/refs/heads/main.zip)**
+(ZIP)](https://github.com/nekolessi/StreamElements-widget-hub/archive/refs/heads/main.zip)**
 
-This gives you all widgets, demos, scripts, and workflows as a single
-ZIP from the `main` branch.
+Grab all widgets, demos, scripts, and workflows in one ZIP from the
+`main` branch.
 
 ------------------------------------------------------------------------
 
@@ -65,10 +65,9 @@ ZIP from the `main` branch.
 
 4.  **Import into StreamElements**
 
-    -   StreamElements → **Overlays** → add **Custom Widget**
+    -   StreamElements → **Overlays** → add **Custom Widget**\
     -   Open the widget editor and replace HTML/CSS/JS with your built
-        files\
-        (or unzip and copy/paste each file into the appropriate tabs).
+        files (or unzip them and copy over files).
 
 ------------------------------------------------------------------------
 
@@ -96,18 +95,20 @@ ZIP from the `main` branch.
     }
     ```
 
--   **Demo harness (`demo/index.html`)** -- mocks SE events & provides
-    local settings:
+-   **Demo harness (`demo/index.html`)** -- mocks SE events & supplies
+    local settings for development:
 
     ``` html
     <script>
       window.SE_SETTINGS = { theme: "dark", fontSize: 24, ignoredUsers: "" };
+
       function sendChat(user, text) {
         window.postMessage({
           listener: "message",
           event: { service: "twitch", data: { displayName: user, text } }
         }, "*");
       }
+
       setInterval(() => sendChat("Viewer" + Math.floor(Math.random()*99), "hello!"), 3000);
     </script>
     ```
@@ -152,16 +153,18 @@ Each widget `package.json` (example):
 ```
 
 `scripts/build-zip.mjs` (outline): - Validate `manifest.json`
-(id/name/version). - Bundle/minify `src/*` (esbuild/rollup optional). -
-Rewrite asset paths if needed, copy to a temp dir. - Zip →
-`dist/<id>-v<version>.zip`.
+(id/name/version).\
+- Bundle/minify `src/*` using tools like esbuild or rollup.\
+- Rewrite asset paths if needed, and copy files into a temporary
+folder.\
+- Zip everything to `dist/<id>-v<version>.zip`.
 
 ------------------------------------------------------------------------
 
 ## CI (GitHub Actions)
 
-On pushes to `main`, build all widgets and (optionally) publish a
-release with ZIPs.
+On push to `main`, build all widgets and (optionally) publish a release
+with ZIPs.
 
 `.github/workflows/release.yml` (minimal example):
 
@@ -198,18 +201,19 @@ jobs:
 ## Branching & Versioning
 
 -   `main` → protected, stable.\
--   Feature branches: `feat/*`, `fix/*` → PRs into `main`.\
--   SemVer per widget (use **Changesets** in independent mode).\
--   Changelogs generated per package.
+-   Use `feat/*`, `fix/*` branches for development and PRs into `main`.\
+-   Version widgets with SemVer---use **Changesets** in independent mode
+    for automated version and changelog generation.
 
 ------------------------------------------------------------------------
 
 ## Linting & Hygiene
 
--   ESLint + Prettier at the root.\
--   `.editorconfig`, `.gitignore` (ignore `dist/`, `node_modules/`,
-    etc).\
--   **License**: MIT (or your choice).
+-   ESLint + Prettier configured at the root.\
+-   Include `.editorconfig` and a `.gitignore` to exclude `dist/`,
+    `.DS_Store`, `node_modules/`, etc.\
+-   Apply an open-source-friendly license like **MIT** (or whichever
+    preference you have).
 
 ------------------------------------------------------------------------
 
@@ -217,16 +221,16 @@ jobs:
 
 **Q:** I just want a quick zip with everything.\
 **A:** Use **[Download the entire repo @ main
-(ZIP)](https://github.com/USERNAME/REPO/archive/refs/heads/main.zip)**
---- you'll get the latest source snapshot.
+(ZIP)](https://github.com/nekolessi/StreamElements-widget-hub/archive/refs/heads/main.zip)**
+for an instant bundle of the whole repo.
 
-**Q:** Where are the importable widget zips?\
-**A:** Run `pnpm build` locally (they'll appear in `packages/*/dist`),
-or download them from the latest GitHub Release (if CI is enabled).
+**Q:** Where are the import-ready widget zips?\
+**A:** Build them locally via `pnpm build`, or grab them from a GitHub
+Release if CI is set up.
 
-**Q:** Can I preview widgets without going live?\
-**A:** Yes --- open each widget's `demo/index.html` via
-`pnpm --filter <pkg> dev`.
+**Q:** Can I preview widgets without loading StreamElements?\
+**A:** Totally! Each widget's `demo/index.html` can be served locally by
+running `pnpm --filter <pkg> dev`.
 
 ------------------------------------------------------------------------
 
