@@ -26,6 +26,7 @@
     ├─ package.json
     ├─ pnpm-workspace.yaml  # workspaces + root scripts
     ├─ turbo.json
+    ├─ eslint.config.js
     ├─ .gitignore
     ├─ .changeset
     ├─ LICENSE
