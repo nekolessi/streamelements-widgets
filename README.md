@@ -94,4 +94,4 @@ StreamElements. ✨
 
 ## 💖 License
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) © Neko Devs (aka nekolessi) — steal responsibly (with credit!), just keep it fluffy 🐾
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) © 2025 [nekolessi](https://github.com/nekolessi) — steal responsibly (with credit!), just keep it fluffy 🐾
