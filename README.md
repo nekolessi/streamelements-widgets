@@ -27,7 +27,8 @@
     ├─ pnpm-workspace.yaml
     ├─ turbo.json
     ├─ .gitignore
-    ├─ LICENSE
+    ├─ .changeset
+    ├─ .LICENSE
     └─ README.md
 
 ------------------------------------------------------------------------
