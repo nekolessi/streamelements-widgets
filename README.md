@@ -1,8 +1,7 @@
 # StreamElements Custom Widgets (Neko Edition) 🐾ฅ^•ﻌ•^ฅ
 
 [![Branch:
-main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)\
-[![License:
+main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)\[![License:
 MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
 > A cozy neko-approved monorepo for StreamElements custom widgets
