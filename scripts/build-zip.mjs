@@ -55,10 +55,11 @@ function copyDir(src, dest) {
 
   try {
     execSync(zipCmd, { stdio: 'inherit' });
+    console.log('Built:', zipPath);
   } catch (e) {
     console.error('Zip failed. Ensure zip (or PowerShell) is available.');
-    process.exit(1);
+    process.exitCode = 1;
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
   }
-
-  console.log('Built:', zipPath);
 })();
