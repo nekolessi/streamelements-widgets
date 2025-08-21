@@ -30,6 +30,7 @@ MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
     ├─ pnpm-workspace.yaml
     ├─ turbo.json
     ├─ .gitignore
+    ├─ LICENSE
     └─ README.md
 
 ------------------------------------------------------------------------
