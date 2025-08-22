@@ -4,7 +4,7 @@
 [![Branch:main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)
 [![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) 
 [![CI](https://github.com/nekolessi/streamelements-widgets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/nekolessi/streamelements-widgets/actions/workflows/release.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/nekolessi/streamelements-widgets/issues)
 [![Stars](https://img.shields.io/github/stars/nekolessi/streamelements-widgets?style=flat)](https://github.com/nekolessi/streamelements-widgets/stargazers)
 [![Issues](https://img.shields.io/github/issues/nekolessi/streamelements-widgets)](https://github.com/nekolessi/streamelements-widgets/issues)
 ![Node 20+](https://img.shields.io/badge/node-20%2B-339933?logo=node.js&logoColor=white)
