@@ -75,7 +75,7 @@ try {
   // try 7z, fall back to system zip (mac/linux) or powershell Compress-Archive (Windows)
   if (hasCmd('7z')) {
   // Use execFileSync to avoid shell interpretation;
-	glob is handled by 7z for most configs
+	// glob is handled by 7z for most configs
 		child_process.execFileSync('7z', ['a', '-tzip',
 	zipPath, path.join(distPath, '*')], { stdio: 'inherit'
 	});
