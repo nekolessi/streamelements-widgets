@@ -24,12 +24,8 @@ Cute neko-styled chat bubbles widget for StreamElements overlays.
    pnpm --filter @nekolessi/chat-bubbles run build:zip
    ```
 
-   The ZIP is created in your **system temp folder** (via `os.tmpdir()`), e.g.:
-   - Windows: `C:\Users\<You>\AppData\Local\Temp\chat-bubbles.zip`
-   - Linux/macOS: `/tmp/chat-bubbles.zip`
-
-   > Want the ZIP inside the repo (e.g. `packages/chat-bubbles/dist/`)?
-   > We can change the script to output there instead.
+   The ZIP is created inside the package’s **dist/** folder, e.g.:
+   - `packages/chat-bubbles/dist/chat-bubbles.zip`
 
 5. **Import into StreamElements**
    - Go to **Overlays → Custom Widget**.
