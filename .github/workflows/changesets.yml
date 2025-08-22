@@ -28,15 +28,14 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
-      - name: Install
-        run: |
-          pnpm install --frozen-lockfile || pnpm install
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile || pnpm install
 
-      # Use dlx so we don't rely on @changesets/cli being in devDependencies or having a bin with exec perms
       - name: Create Version PR
         uses: changesets/action@v1
         with:
-          version: pnpm dlx @changesets/cli changeset version
+          # Use dlx so we don't rely on a local bin; --yes auto-confirms install
+          version: pnpm dlx --yes @changesets/cli changeset version
           commit: "chore: version packages"
           title: "chore: version packages"
         env:
