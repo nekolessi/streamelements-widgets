@@ -8,4 +8,4 @@ Here you’ll find:
 - 📦 Import/Export guides
 
 ## Widgets
-- [Chat Bubbles](../packages/chat-bubbles/demo/index.html)
+- [Chat Bubbles](chat-bubbles/index.html)
