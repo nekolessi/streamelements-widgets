@@ -2,16 +2,23 @@ import child_process from 'child_process';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
+// Resolve repo root based on this script's location: <repo>/scripts/build-zip.mjs
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, '..'); // parent of scripts/
+
+// Arg: widget/package name under packages/
 const widgetName = process.argv[2];
 if (!widgetName) {
   console.error('Usage: npm run build-zip <widget-name>');
   process.exit(1);
 }
 
-const widgetPath = path.join('packages', widgetName);
+const widgetPath = path.join(repoRoot, 'packages', widgetName);
 if (!fs.existsSync(widgetPath)) {
-  console.error(`Widget ${widgetName} not found`);
+  console.error(`Widget ${widgetName} not found at ${widgetPath}`);
   process.exit(1);
 }
 
@@ -32,7 +39,10 @@ if (needsBuild) {
       child_process.execSync(`npm --prefix "${widgetPath}" run build`, { stdio: 'inherit' });
     }
   } catch (e) {
-    console.error(`Package build failed for ${widgetName}. Ensure packages/${widgetName}/package.json has a "build" script that emits to dist/`, e);
+    console.error(
+      `Package build failed for ${widgetName}. Ensure packages/${widgetName}/package.json has a "build" script that emits to dist/`,
+      e
+    );
     process.exit(1);
   }
 }

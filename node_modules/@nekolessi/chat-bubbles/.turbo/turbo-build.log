@@ -2,6 +2,6 @@
 > @nekolessi/chat-bubbles@0.1.0 build C:\Users\GamingPC\streamelements-widgets\packages\chat-bubbles
 > node ../../scripts/build-zip.mjs chat-bubbles
 
-Build output not found for chat-bubbles. Run npm run build first.
+Widget chat-bubbles not found
  ELIFECYCLE  Command failed with exit code 1.
  WARN   Local package.json exists, but node_modules missing, did you mean to install?
