@@ -1,21 +1,48 @@
 # ------------------------------
-# Node.js / JavaScript projects
+# pnpm / Node.js monorepo
 # ------------------------------
+
+# Dependencies
+node_modules/
+packages/*/node_modules/
 
 # Build output
 dist/
 build/
+packages/**/dist/
 
-# Local environment files
-.env
-.env.local
-.env.*.local
+# Coverage / testing
+coverage/
+.nyc_output/
 
 # Logs
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+
+# Caches
+.eslintcache
+*.tsbuildinfo
+.cache/
+.parcel-cache/
+.next/
+out/
+.turbo/
+storybook-static/
+node_modules/.cache/
+
+# Test runner outputs (optional but handy)
+cypress/screenshots/
+cypress/videos/
+playwright-report/
+test-results/
+blob-report/
+
+# Env files
+.env
+.env.local
+.env.*.local
 
 # Editor / OS files
 .DS_Store
@@ -24,20 +51,13 @@ Thumbs.db
 .idea/
 *.swp
 
-# Coverage / testing
-coverage/
-.nyc_output/
-
-# Cache
-.cache/
-.parcel-cache/
-.next/
-out/
-
-# Optional lockfiles (pick one package manager)
-# If you're only using npm, ignore pnpm/yarn locks
-pnpm-lock.yaml
+# Package manager lockfiles
+# Using pnpm: commit pnpm-lock.yaml; ignore the others
+package-lock.json
 yarn.lock
+
+# Release artifacts (from workflows)
+release-zips/
 
 # Misc
 *.tgz
