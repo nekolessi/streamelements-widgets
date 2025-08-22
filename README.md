@@ -36,12 +36,17 @@
 
 ##  Quick Install & Play (nya~)
 
+##  Requirements
+
+- Node.js ≥18
+- pnpm ≥10 (repository uses pnpm workspace features)
+
+##  Installation
+
 ```bash
-git clone https://github.com/nekolessi/streamelements-widgets.git
+git clone https://github.com/your-username/streamelements-widgets.git
 cd streamelements-widgets
 pnpm install
-```
-This repo uses [pnpm](https://pnpm.io) for dependency management. Be sure to run `pnpm install` in the repository root before working on any widgets.
 
 Run a widget locally (example: chat bubbles):
 
