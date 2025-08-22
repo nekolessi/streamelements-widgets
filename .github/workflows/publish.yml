@@ -1,0 +1,53 @@
+name: Publish Packages (npm)
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Optional git tag to publish from (e.g., v42)"
+        required: false
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  id-token: write # for npm provenance (optional)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      # If you use Changesets for versioning, publish via Changesets:
+      - name: Publish (Changesets)
+        run: pnpm changeset publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Alternative for pure workspaces (disable the step above and enable below):
+      # - name: Publish (pnpm recursive)
+      #   run: pnpm -r publish --access public --no-git-checks
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

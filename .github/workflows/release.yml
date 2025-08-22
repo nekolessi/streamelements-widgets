@@ -1,0 +1,41 @@
+name: Release Widgets
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all widgets
+        run: pnpm build
+
+      - name: Collect artifacts
+        run: |
+          mkdir -p artifacts
+          find packages -type f -name "*.zip" -exec cp {} artifacts/ \;
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: ${{ always() }}
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Widget Release ${{ github.run_number }}
+          files: artifacts/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
