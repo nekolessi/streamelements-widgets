@@ -90,15 +90,12 @@ README.md     # widget-specific docs
 
 ------------------------------------------------------------------------
 
-##  Widget Conventions (nya~ cuteness inside)
+##  Tooling
 
-Each widget follows:
-
-- `src/` → HTML, CSS, JS  
-- `manifest.json` → id, version, fields, preview  
-- `demo/` → standalone local preview  
-- `dist/` → output zips  
-- `README.md` → widget-specific guide  
+    Lint: pnpm lint
+    Format: pnpm lint:fix
+    Test: pnpm test or pnpm test:watch
+    Release: pnpm changeset → merge → tag (vX.Y.Z) for GitHub Actions to publish.
 
 ------------------------------------------------------------------------
 
