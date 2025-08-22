@@ -1,3 +1,6 @@
+/* eslint-env browser, node */
+/* global define */
+
 // Chat Bubbles widget - library entry
 // Works as an IIFE build (attached to window.ChatBubbles) and can be imported in ESM/CommonJS.
 // No console.log (only warn/error), braces on all ifs, and no useless escapes to satisfy ESLint rules.
@@ -54,16 +57,13 @@
     if (!global.ChatBubbles) {
       global.ChatBubbles = api;
     }
-    // eslint-disable-next-line no-console
     console.warn('[chat-bubbles] widget ready');
   }
 
   // ESM/CJS compatibility (tree-shakable when bundled differently)
-  // eslint-disable-next-line no-undef
   if (typeof exports === 'object' && typeof module !== 'undefined') {
     module.exports = api; // CommonJS
   } else if (typeof define === 'function' && define.amd) {
-    // eslint-disable-next-line no-undef
     define(function () { return api; });
   } else {
     // For ESM builds, a named/default export will be replaced by bundlers
