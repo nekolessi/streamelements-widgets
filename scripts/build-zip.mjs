@@ -31,16 +31,15 @@ function copyIfExists(from, to) {
   if (fs.existsSync(from)) {
     ensureDir(path.dirname(to));
     fs.copyFileSync(from, to);
-    console.log(`✔ Copied ${path.relative(repoRoot, from)} -> ${path.relative(repoRoot, to)}`);
+    console.warn(`copied: ${path.relative(repoRoot, from)} -> ${path.relative(repoRoot, to)}`);
     return true;
   } else {
-    console.warn(`⚠ Missing ${path.relative(repoRoot, from)} (skipped)`);
+    console.warn(`missing: ${path.relative(repoRoot, from)} (skipped)`);
     return false;
   }
 }
 
-// Copy required widget files into dist prior to zipping
-
+// Stage required widget files into dist
 function stageWidgetFiles() {
   ensureDir(distPath);
 
@@ -60,10 +59,23 @@ function stageWidgetFiles() {
   }
 }
 
+function hasTool(cmd) {
+  try {
+    if (process.platform === 'win32') {
+      execSync(`where ${cmd}`, { stdio: 'ignore' });
+    } else {
+      execSync(`command -v ${cmd}`, { stdio: 'ignore' });
+    }
+    return true;
+  } catch {
+    return false;
+  }
 }
 
-function hasTool(cmd) {
-  
+try {
+  // 1) Stage files
+  stageWidgetFiles();
+
   // 2) Build whitelist of files to include in the zip (only widget artifacts)
   const candidates = ['widget.html', 'widget.css', 'widget.js', 'manifest.json'];
   const filesToZip = candidates
@@ -82,16 +94,15 @@ function hasTool(cmd) {
   // 4) Zip (whitelist only)
   if (hasTool('7z')) {
     // Run 7z with only the whitelisted files
-    const rels = filesToZip.map(f => path.relative(distPath, f)).join('" "');
-    execSync(`7z a -tzip "${zipPath}" "${rels}"`, { cwd: distPath, stdio: 'inherit' });
+    const rels = filesToZip.map(f => path.relative(distPath, f)).map(s => `"${s}"`).join(' ');
+    execSync(`7z a -tzip "${zipPath}" ${rels}`, { cwd: distPath, stdio: 'inherit' });
   } else if (hasTool('zip')) {
     // Run zip with only the whitelisted files
     const rels = filesToZip.map(f => path.relative(distPath, f)).join(' ');
     execSync(`zip -r "${zipPath}" ${rels}`, { cwd: distPath, stdio: 'inherit' });
   } else if (process.platform === 'win32') {
     // PowerShell Compress-Archive with explicit file list
-    // Build a comma-separated -Path list with quoted absolute paths
-    const psList = filesToZip.map(f => `"${f.replace(/\/g, '\\')}"`).join(',');
+    const psList = filesToZip.map(f => `"${f.replace(/\\/g, '\\\\')}"`).join(',');
     const psArgs = [
       '-NoProfile',
       '-Command',
@@ -101,7 +112,8 @@ function hasTool(cmd) {
   } else {
     throw new Error('No zip tool found (tried 7z/zip). Install 7-Zip or zip.');
   }
-console.warn(`Zipped ${widgetName} to ${zipPath}`);
+
+  console.warn(`Zipped ${widgetName} to ${zipPath}`);
 } catch (e) {
   console.error('Error while creating zip:', e);
   process.exit(1);

@@ -8,14 +8,16 @@ const repoRoot = path.resolve(__dirname, '..');
 const packagesDir = path.join(repoRoot, 'packages');
 
 function ensureDir(p) {
-  if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
+  if (!fs.existsSync(p)) {
+    fs.mkdirSync(p, { recursive: true });
+  }
 }
 
 function copyIfExists(src, dest) {
   if (fs.existsSync(src)) {
     ensureDir(path.dirname(dest));
     fs.copyFileSync(src, dest);
-    console.log(`✔ ${path.relative(repoRoot, src)} → ${path.relative(repoRoot, dest)}`);
+    console.warn(`✔ ${path.relative(repoRoot, src)} → ${path.relative(repoRoot, dest)}`);
     return true;
   } else {
     return false;
@@ -51,7 +53,7 @@ function stagePackage(pkgPath) {
   }
 
   if (touched > 0) {
-    console.log(`→ staged ${touched} file(s) for ${name}`);
+    console.warn(`→ staged ${touched} file(s) for ${name}`);
   }
 }
 
