@@ -51,7 +51,6 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm dlx @changesets/cli version
-          publish: pnpm -r publish --access public
           title: 'chore: release'
           commit: 'chore: version packages'
         env:
