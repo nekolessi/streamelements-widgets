@@ -6,10 +6,10 @@
  * - Optionally minifies (left as-is for simplicity)
  * - Zips to dist/<id>-v<version>.zip
  */
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
-const os = require('os');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import os from 'os';
 
 function copyDir(src, dest) {
   if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
