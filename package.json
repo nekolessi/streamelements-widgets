@@ -1,8 +1,7 @@
 {
   "name": "streamelements-widgets",
   "private": true,
-  "workspaces": [
-    "packages/*"
+  "workspaces": ["packages/*"],
   ],
   "scripts": {
     "build": "turbo run build",
