@@ -23,7 +23,7 @@
     "neko"
   ],
   "scripts": {
-    "build": "node ../../scripts/build-zip.mjs",
+    "build": "node ../../scripts/build-zip.mjs chat-bubbles",
     "dev": "echo 'Start dev server here (e.g., vite) for widget preview'"
   },
   "dependencies": {},
