@@ -2,9 +2,6 @@
 # Node.js / JavaScript projects
 # ------------------------------
 
-# Dependencies
-node_modules/
-
 # Build output
 dist/
 build/
