@@ -33,7 +33,7 @@ jobs:
       - name: Create Version PR
         uses: changesets/action@v1
         with:
-          version: pnpm dlx --yes @changesets/cli changeset version
+          version: pnpm dlx @changesets/cli changeset version
           commit: "chore: version packages"
           title: "chore: version packages"
         env:
