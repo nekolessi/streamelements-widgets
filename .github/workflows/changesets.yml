@@ -1,5 +1,4 @@
 name: Changesets Version PR
-
 on:
   push:
     branches: [ main ]
@@ -25,16 +24,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile || pnpm install
 
+      # Ensure a clean worktree so the action can switch branches safely
+      - name: Clean working tree
+        run: |
+          git reset --hard
+          git clean -fdx
+
       - name: Create Version PR
         uses: changesets/action@v1
         with:
-          version: pnpm dlx @changesets/cli changeset version
+          # Pass only the CLI; the action appends "version" internally
+          version: pnpm dlx @changesets/cli
           commit: "chore: version packages"
           title: "chore: version packages"
         env:
+          # If org policy blocks GITHUB_TOKEN PRs, replace with a PAT secret:
+          # GITHUB_TOKEN: ${{ secrets.CHANGESET_PAT }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
