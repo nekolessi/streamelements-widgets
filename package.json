@@ -7,7 +7,7 @@
     "build": "turbo run build",
     "lint": "eslint .",
     "lint:fix": "eslint . --ext .js,.mjs --fix",
-    "release": "changeset version && changeset publish"
+    "release": "changeset version && changeset publish",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage"
