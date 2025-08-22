@@ -1,4 +1,4 @@
-name: Build & Deploy Docs
+name: Build & Deploy Docs (monorepo-aware)
 
 on:
   push:
@@ -21,19 +21,58 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
         with:
           version: 10
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: "pnpm"
 
-      - run: pnpm install --frozen-lockfile || pnpm install
-      - run: pnpm build || true
+      - name: Install
+        run: pnpm install --frozen-lockfile || pnpm install
+
+      - name: Build workspaces (best effort)
+        run: pnpm -r run build || pnpm run build || true
+
+      - name: Prepare docs folder
+        shell: bash
+        run: |
+          set -e
+          mkdir -p "$DOCS_DIR"
+
+          # 1) Keep the root docs/ landing files (index.html, index.md, etc.) if present
+          #    They should already be in the repo at DOCS_DIR, so nothing to do here.
+
+          # 2) Copy package demos into docs/<normalized-name>/
+          #    - If a package has packages/<id>/demo/, copy it
+          #    - Else if it has packages/<id>/dist/ and contains an index.html, copy that
+          normalize() { echo "$1" | sed -e 's/@//g' -e 's#/#-#g'; }
+
+          if [ -d "packages" ]; then
+            for pkg in packages/*; do
+              [ -d "$pkg" ] || continue
+              if [ -f "$pkg/package.json" ]; then
+                name=$(node -e "console.log(require('./$pkg/package.json').name || require('path').basename('$pkg'))" 2>/dev/null || basename "$pkg")
+                norm=$(normalize "$name")
+
+                if [ -d "$pkg/demo" ]; then
+                  rsync -a --delete "$pkg/demo/" "$DOCS_DIR/$norm/"
+                elif [ -d "$pkg/dist" ] && [ -f "$pkg/dist/index.html" ]; then
+                  rsync -a --delete "$pkg/dist/" "$DOCS_DIR/$norm/"
+                fi
+              fi
+            done
+          fi
+
+          echo "Docs content:"
+          find "$DOCS_DIR" -maxdepth 2 -type f -name "index.*" -print || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
