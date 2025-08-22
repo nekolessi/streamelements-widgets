@@ -36,7 +36,7 @@
 
 ##  Quick Install & Play (nya~)
 
-Requirements
+Requirements:
 
 - Node.js ≥18
 - pnpm ≥10 (repository uses pnpm workspace features)
@@ -59,8 +59,26 @@ Build all widgets into `.zip` bundles:
 ```bash
 pnpm build
 ```
-
+##  Create an uploadable zip bundle for a widget:
+```bash
+pnpm --filter @nekolessi/chat-bubbles run build:zip
+# => packages/chat-bubbles/dist/chat-bubbles.zip
+```
 Then drop the `.zip` from `packages/<widget>/dist/` into **StreamElements → Overlays → Custom Widget** — paste or import, and ✨stream magic!
+------------------------------------------------------------------------
+
+##  Adding a New Widget
+
+1. Create packages/<widget-name> with the structure:
+```bash
+src/          # widget.html/css/js
+manifest.json # widget metadata & fields
+demo/         # optional local preview
+README.md     # widget-specific docs
+```
+2. Add build and dev scripts in the widget’s package.json.
+3. Update docs/ (and any index pages) with a link to the new widget.
+4. Run pnpm build to generate its dist/ output.
 
 ------------------------------------------------------------------------
 
