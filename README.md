@@ -27,7 +27,7 @@
     ├─ .gitignore
     ├─ LICENSE
     ├─ README.md
-    ├─ eslint.config.js
+    ├─ eslint.config.mjs
     ├─ package.json
     ├─ pnpm-workspace.yaml  # workspaces + root scripts
     └─ turbo.json
