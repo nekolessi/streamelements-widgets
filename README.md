@@ -47,8 +47,8 @@
 git clone https://github.com/your-username/streamelements-widgets.git
 cd streamelements-widgets
 pnpm install
-
-Run a widget locally (example: chat bubbles):
+```
+##  Run a widget locally (example: chat bubbles):
 
 ```bash
 pnpm --filter @nekolessi/chat-bubbles dev
