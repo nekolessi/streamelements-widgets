@@ -11,27 +11,48 @@ const repoRoot = path.resolve(__dirname, '..'); // parent of scripts/
 // Arg: widget/package name under packages/
 const widgetName = process.argv[2];
 if (!widgetName) {
-  console.error('Usage: npm run build-zip <widget-name>');
+  console.error('Usage: pnpm build-zip <widget-name>');
   process.exit(1);
 }
 
-// Paths
-const distPath = path.join(repoRoot, 'packages', widgetName, 'dist');
+const pkgDir = path.join(repoRoot, 'packages', widgetName);
+const srcDir = path.join(pkgDir, 'src');
+const distPath = path.join(pkgDir, 'dist');
 const zipName = `${widgetName}.zip`;
 const zipPath = path.join(distPath, zipName);
 
-// Ensure dist exists
-if (!fs.existsSync(distPath)) {
-  console.error(`Dist folder not found: ${distPath}`);
-  process.exit(1);
+function ensureDir(p) {
+  if (!fs.existsSync(p)) {
+    fs.mkdirSync(p, { recursive: true });
+  }
 }
 
-// Remove any old zip
-if (fs.existsSync(zipPath)) {
-  fs.rmSync(zipPath, { force: true });
+function copyIfExists(from, to) {
+  if (fs.existsSync(from)) {
+    ensureDir(path.dirname(to));
+    fs.copyFileSync(from, to);
+    console.log(`✔ Copied ${path.relative(repoRoot, from)} -> ${path.relative(repoRoot, to)}`);
+    return true;
+  } else {
+    console.warn(`⚠ Missing ${path.relative(repoRoot, from)} (skipped)`);
+    return false;
+  }
 }
 
-// Helpers
+// Copy required widget files into dist prior to zipping
+function stageWidgetFiles() {
+  ensureDir(distPath);
+
+  // Always try to copy manifest.json from package root
+  copyIfExists(path.join(pkgDir, 'manifest.json'), path.join(distPath, 'manifest.json'));
+
+  // Copy core widget files from src/
+  const wanted = ['widget.html', 'widget.css', 'widget.js'];
+  for (const f of wanted) {
+    copyIfExists(path.join(srcDir, f), path.join(distPath, f));
+  }
+}
+
 function hasTool(cmd) {
   try {
     if (process.platform === 'win32') {
@@ -46,16 +67,21 @@ function hasTool(cmd) {
 }
 
 try {
-  // Prefer 7-Zip, then zip, then PowerShell Compress-Archive (Windows)
+  // 1) Stage files
+  stageWidgetFiles();
+
+  // 2) Remove any old zip
+  if (fs.existsSync(zipPath)) {
+    fs.rmSync(zipPath, { force: true });
+  }
+
+  // 3) Zip dist
   if (hasTool('7z')) {
-    // 7z a -tzip <zipPath> <contents> -mx=9 -r
     execSync(`7z a -tzip "${zipPath}" "*"`,
       { cwd: distPath, stdio: 'inherit' });
   } else if (hasTool('zip')) {
-    // zip -r <zipPath> .
     execSync(`zip -r "${zipPath}" .`, { cwd: distPath, stdio: 'inherit' });
   } else if (process.platform === 'win32') {
-    // PowerShell Compress-Archive
     const psArgs = [
       '-NoProfile',
       '-Command',

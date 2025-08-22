@@ -13,7 +13,8 @@
     "release": "changeset version && changeset publish",
     "test": "node node_modules/vitest/vitest.mjs run",
     "test:watch": "node node_modules/vitest/vitest.mjs",
-    "test:cov": "node node_modules/vitest/vitest.mjs run --coverage"
+    "test:cov": "node node_modules/vitest/vitest.mjs run --coverage",
+    "postbuild": "node scripts/stage-all-widgets.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.6",
