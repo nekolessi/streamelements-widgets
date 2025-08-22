@@ -12,8 +12,6 @@
 ## 🐾 Repo Layout
 
     streamelements-widgets/'
-    ├─ .changeset
-    ├─ .github
     ├─ docs/                # optional: GH Pages previews
     ├─ packages/
     │  ├─ chat-bubbles/     # widget.html / widget.css / widget.js / assets
@@ -24,13 +22,9 @@
     │  │  └─ dist/          # build output: <id>-<version>.zip
     │  └─ ...
     ├─ scripts/             # build helpers (e.g., build-zip.mjs)
-    ├─ .gitignore
-    ├─ LICENSE
-    ├─ README.md
-    ├─ eslint.config.mjs
+    ├─ tests/               # shared tests
     ├─ package.json
-    ├─ pnpm-workspace.yaml  # workspaces + root scripts
-    └─ turbo.json
+    └─ ...
 
 ------------------------------------------------------------------------
 
