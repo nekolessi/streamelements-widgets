@@ -11,9 +11,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --ext .js,.mjs --fix",
     "release": "changeset version && changeset publish",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:cov": "vitest run --coverage"
+    "test": "node node_modules/vitest/vitest.mjs run",
+    "test:watch": "node node_modules/vitest/vitest.mjs",
+    "test:cov": "node node_modules/vitest/vitest.mjs run --coverage"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
