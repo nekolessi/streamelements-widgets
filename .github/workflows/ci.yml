@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     paths:
-      - 'templates/**'
+      - 'packages/**'
       - '.github/workflows/ci.yml'
   pull_request:
 
@@ -20,5 +20,5 @@ jobs:
           node-version: 20
           cache: 'pnpm'
       - run: pnpm i
-      - run: pnpm -C templates/widget-starter lint
-      - run: pnpm -C templates/widget-starter build
+      - run: pnpm lint
+      - run: pnpm build
