@@ -1,6 +1,25 @@
-[![Branch:main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)  [![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
 # 🐾 Neko's Widgets (StreamElements) 🐱✨
+
+<!-- badges: start -->
+[![Branch:main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)
+[![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) 
+[![CI](https://github.com/nekolessi/streamelements-widgets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/nekolessi/streamelements-widgets/actions/workflows/release.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/nekolessi/streamelements-widgets?style=flat)](https://github.com/nekolessi/streamelements-widgets/stargazers)
+[![Issues](https://img.shields.io/github/issues/nekolessi/streamelements-widgets)](https://github.com/nekolessi/streamelements-widgets/issues)
+![Node 20+](https://img.shields.io/badge/node-20%2B-339933?logo=node.js&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-10.x-F69220?logo=pnpm&logoColor=white)
+![Turbo](https://img.shields.io/badge/built%20with-turbo-000000?logo=turbo&logoColor=white)
+![ESLint](https://img.shields.io/badge/linted%20with-ESLint-4B32C3?logo=eslint&logoColor=white)
+[![Code Style: Prettier](https://img.shields.io/badge/code_style-Prettier-1a2b34?logo=prettier)](https://prettier.io)
+![Vitest](https://img.shields.io/badge/tested%20with-vitest-6E9F18?logo=vitest&logoColor=white)
+![Versioning: Changesets](https://img.shields.io/badge/versioning-Changesets-5D3FD3)
+<!-- Optional npm (uncomment when published)
+[![npm version](https://img.shields.io/npm/v/@nekolessi/chat-bubbles.svg)](https://www.npmjs.com/package/@nekolessi/chat-bubbles)
+[![npm downloads](https://img.shields.io/npm/dm/@nekolessi/chat-bubbles.svg)](https://www.npmjs.com/package/@nekolessi/chat-bubbles)
+-->
+<!-- badges: end -->
+
 
 > Welcome to my cozy widget den! This repo houses custom **StreamElements** widgets, bundled as a pnpm workspace.
 
