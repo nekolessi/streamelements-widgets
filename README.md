@@ -21,7 +21,7 @@
 <!-- badges: end -->
 
 
-> Welcome to my cozy widget den! This repo houses custom **StreamElements** widgets, bundled as a pnpm workspace.
+> Welcome to my cozy widget den! This **monorepo** houses custom **StreamElements** widgets, bundled as a pnpm workspace.
 
 Built with: **pnpm workspaces**, **Turbo** (build orchestration), **ESLint** (no naughty `console.log`, only `warn`/`error`), **Vitest**, and **Changesets** + GitHub Actions for release magic. nya~
 
