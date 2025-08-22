@@ -68,16 +68,16 @@ Then drop the `.zip` from `packages/<widget>/dist/` into **StreamElements → Ov
 
 ##  Adding a New Widget
 
-1. Create packages/<widget-name> with the structure:
+1. Create `packages/<widget-name>` with the structure:
 ```bash
 src/          # widget.html/css/js
 manifest.json # widget metadata & fields
 demo/         # optional local preview
 README.md     # widget-specific docs
 ```
-2. Add build and dev scripts in the widget’s package.json.
-3. Update docs/ (and any index pages) with a link to the new widget.
-4. Run pnpm build to generate its dist/ output.
+2. Add build and dev scripts in the widget’s `package.json`.
+3. Update `docs/` (and any index pages) with a link to the new widget.
+4. Run `pnpm build` to generate its `dist/` output.
 
 ------------------------------------------------------------------------
 
