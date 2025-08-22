@@ -84,7 +84,7 @@ try {
       'powershell',
       '-NoProfile',
       '-Command',
-      f'Compress-Archive -Path "{distPath}\\*" -DestinationPath "{zipPath}" -Force'
+      `Compress-Archive -Path "${distPath}\\*" -DestinationPath "${zipPath}" -Force`
     ];
     child_process.execFileSync(ps[0], ps.slice(1), { stdio: 'inherit' });
   } else {
