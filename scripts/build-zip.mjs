@@ -1,15 +1,15 @@
 import child_process from 'child_process';
 import fs from 'fs';
-import os from 'os';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const widgetName = process.argv[2];
-if (!widgetName) {
-  console.error('Usage: npm run build-zip <widget-name>');
-  process.exit(1);
-}
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, '..');
 
-const widgetPath = path.join('packages', widgetName);
+const widgetName = process.argv[2] || path.basename(process.cwd());
+
+const widgetPath = path.join(repoRoot, 'packages', widgetName);
 if (!fs.existsSync(widgetPath)) {
   console.error(`Widget ${widgetName} not found`);
   process.exit(1);
@@ -22,7 +22,7 @@ if (!fs.existsSync(distPath)) {
 }
 
 const zipName = `${widgetName}.zip`;
-const zipPath = path.join(os.tmpdir(), zipName);
+const zipPath = path.join(distPath, zipName);
 
 try {
   // clean old zip if exists
