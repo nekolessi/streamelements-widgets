@@ -65,7 +65,7 @@ pnpm --filter @nekolessi/chat-bubbles run build:zip
 # => packages/chat-bubbles/dist/chat-bubbles.zip
 ```
 Then drop the `.zip` from `packages/<widget>/dist/` into **StreamElements → Overlays → Custom Widget** — paste or import, and ✨stream magic!
-------------------------------------------------------------------------
+
 ##  Adding a New Widget
 
 1. Create packages/<widget-name> with the structure:
