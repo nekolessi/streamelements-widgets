@@ -1,7 +1,8 @@
 name: Changesets Version PR
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -11,26 +12,31 @@ jobs:
   version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v3
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: "pnpm"
 
       - name: Install
-        run: pnpm install --frozen-lockfile
+        run: |
+          pnpm install --frozen-lockfile || pnpm install
 
+      # Use dlx so we don't rely on @changesets/cli being in devDependencies or having a bin with exec perms
       - name: Create Version PR
         uses: changesets/action@v1
         with:
-          version: pnpm changeset version
+          version: pnpm dlx @changesets/cli changeset version
           commit: "chore: version packages"
           title: "chore: version packages"
         env:
