@@ -11,7 +11,10 @@
 
 ## 🐾 Repo Layout
 
-    streamelements-widgets/
+    streamelements-widgets/'
+    ├─ .changeset
+    ├─ .github
+    ├─ docs/                # optional: GH Pages previews
     ├─ packages/
     │  ├─ chat-bubbles/     # widget.html / widget.css / widget.js / assets
     │  │  ├─ src/           # core widget source
@@ -20,17 +23,14 @@
     │  │  ├─ README.md
     │  │  └─ dist/          # build output: <id>-<version>.zip
     │  └─ ...
-    ├─ docs/                # optional: GH Pages previews
     ├─ scripts/             # build helpers (e.g., build-zip.mjs)
-    ├─ .github/workflows/   # CI for building & releasing zips
+    ├─ .gitignore
+    ├─ LICENSE
+    ├─ README.md
+    ├─ eslint.config.js
     ├─ package.json
     ├─ pnpm-workspace.yaml  # workspaces + root scripts
-    ├─ turbo.json
-    ├─ eslint.config.js
-    ├─ .gitignore
-    ├─ .changeset
-    ├─ LICENSE
-    └─ README.md
+    └─ turbo.json
 
 ------------------------------------------------------------------------
 
