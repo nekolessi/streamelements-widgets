@@ -74,8 +74,11 @@ try {
 
   // try 7z, fall back to system zip (mac/linux) or powershell Compress-Archive (Windows)
   if (hasCmd('7z')) {
-    const cmd = `7z a -tzip "${zipPath}" "${distPath}/*"`;
-    child_process.execSync(cmd, { stdio: 'inherit' });
+  // Use execFileSync to avoid shell interpretation;
+	glob is handled by 7z for most configs
+		child_process.execFileSync('7z', ['a', '-tzip',
+	zipPath, path.join(distPath, '*')], { stdio: 'inherit'
+	});
   } else if (process.platform !== 'win32' && hasCmd('zip')) {
     const cmd = `cd "${distPath}" && zip -r "${zipPath}" *`;
     child_process.execSync(cmd, { stdio: 'inherit', shell: '/bin/bash' });
