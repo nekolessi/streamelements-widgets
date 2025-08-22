@@ -1,129 +1,161 @@
-# StreamElements Custom Widgets (Neko Edition) 🐾
+# 🐾 Neko Widgets — meow-norepo (StreamElements) 🐱✨
 
-[![Branch:main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)  [![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+> nyah~ welcome to my cozy widget den! this repo houses custom **StreamElements** widgets, bundled as a pnpm workspace. primary cutie right now: **Chat Bubbles** (`@nekolessi/chat-bubbles`). purr-fect for making your chat pop~
 
-> A cozy neko-approved monorepo for StreamElements custom widgets
-> (HTML/CSS/JS).\
-> Purrfect for catgirls (and humans!) who wanna build, test, and share
-> their stream magic. 🐱✨
+Built with: **pnpm workspaces**, **Turbo** (build orchestration), **ESLint** (no naughty `console.log`, only `warn`/`error`), **Vitest**, and **Changesets** + GitHub Actions for release magic. mrow~
 
-------------------------------------------------------------------------
+---
 
-## 🐾 Repo Layout
+## 💖 Requirements (pet these first)
+- **Node.js 20+**
+- **pnpm 10.x** (`"packageManager": "pnpm@10.x"` is set)
+- macOS / Linux / Windows all welcome :3
 
-    streamelements-widgets/'
-    ├─ docs/                # optional: GH Pages previews
-    ├─ packages/
-    │  ├─ chat-bubbles/     # widget.html / widget.css / widget.js / assets
-    │  │  ├─ src/           # core widget source
-    │  │  ├─ demo/          # local preview pages
-    │  │  ├─ manifest.json  # documented fields + defaults
-    │  │  ├─ README.md
-    │  │  └─ dist/          # build output: <id>-<version>.zip
-    │  └─ ...
-    ├─ scripts/             # build helpers (e.g., build-zip.mjs)
-    ├─ tests/               # shared tests
-    ├─ package.json
-    └─ ...
+> first time here? install Node 20 + pnpm, then run `pnpm install` in the repo root. easy peasy, kitty squeezy~
 
-------------------------------------------------------------------------
+---
 
-##  Quick Install & Play (nya~)
+## 🧶 Project yarn-ball (structure)
+```
+.
+├─ packages/
+│  └─ chat-bubbles/
+│     ├─ src/
+│     │  ├─ widget.html
+│     │  ├─ widget.css
+│     │  ├─ widget.js
+│     │  └─ fields.json   # source of widget fields; becomes dist/manifest.json
+│     └─ dist/
+│        ├─ widget.html
+│        ├─ widget.css
+│        ├─ widget.js
+│        └─ manifest.json
+├─ scripts/
+│  ├─ build-zip.mjs         # zips only widget.html|css|js|manifest.json (whitelist)
+│  └─ stage-all-widgets.mjs # copies src/* + maps fields.json -> dist/manifest.json
+├─ eslint.config.mjs
+├─ package.json
+└─ turbo.json (if present)
+```
 
-Requirements:
+---
 
-- Node.js ≥18
-- pnpm ≥10 (repository uses pnpm workspace features)
-
-##  Installation
-
+## 🐾 Install (treats for dependencies)
 ```bash
-git clone https://github.com/your-username/streamelements-widgets.git
-cd streamelements-widgets
 pnpm install
 ```
-##  Run a widget locally (example: chat bubbles):
 
-```bash
-pnpm --filter @nekolessi/chat-bubbles dev
-```
+This is a workspace, so deps get installed once and shared where needed. no hairballs!
 
-Build all widgets into `.zip` bundles:
+---
 
+## 🛠️ Build (make it meowgical)
+### All packages
 ```bash
 pnpm build
 ```
-##  Create an uploadable zip bundle for a widget:
+This runs your workspace build via Turbo. After build, a `postbuild` hook runs:
 ```bash
-pnpm --filter @nekolessi/chat-bubbles run build:zip
-# => packages/chat-bubbles/dist/chat-bubbles.zip
+node scripts/stage-all-widgets.mjs
 ```
-Then drop the `.zip` from `packages/<widget>/dist/` into **StreamElements → Overlays → Custom Widget** — paste or import, and ✨stream magic!
+What it does:
+- ensures each `packages/*/dist/` exists
+- copies `src/widget.html`, `src/widget.css`, `src/widget.js` → `dist/`
+- **maps** `src/fields.json` → `dist/manifest.json` (so StreamElements purrs happily)
 
-##  Adding a New Widget
-
-1. Create `packages/<widget-name>` with the structure:
+### Single package
 ```bash
-src/          # widget.html/css/js
-manifest.json # widget metadata & fields
-demo/         # optional local preview
-README.md     # widget-specific docs
+pnpm --filter @nekolessi/chat-bubbles build
+# or just rerun the staging if you tinkered with src:
+node scripts/stage-all-widgets.mjs
 ```
-2. Add build and dev scripts in the widget’s `package.json`.
-3. Update `docs/` (and any index pages) with a link to the new widget.
-4. Run `pnpm build` to generate its `dist/` output.
 
-------------------------------------------------------------------------
+---
 
-##  Dev Flow & CI Magic
+## 📦 Package a widget (ZIP it up, nya)
+Create a distributable zip for a package (example: `chat-bubbles`):
+```bash
+node scripts/build-zip.mjs chat-bubbles
+```
+The zipper is *strictly* horny for these four files (whitelist only):
+- `widget.html`
+- `widget.css`
+- `widget.js`
+- `manifest.json`
 
-- **GitHub Actions** auto-build & release zips when pushing to `main`.  
-- **Pages**: widget demos published from `docs/`.  
-- **Changesets**: version bump & changelogs across all widgets.  
-- **Publish to npm**: tag `vX.Y.Z` and Actions will run `pnpm changeset publish`.
+Result:
+```
+packages/chat-bubbles/dist/chat-bubbles.zip
+```
 
-------------------------------------------------------------------------
+> Any other builds (like a library bundle `chat-bubbles.js`) are **intentionally excluded** from the zip. paws off!
 
-##  Tooling
+---
 
-- Lint: `pnpm lint`
-- Format: `pnpm lint:fix`
-- Test: `pnpm test` or `pnpm test:watch`
-- Release: `pnpm changeset` → merge → tag (`vX.Y.Z`) for GitHub Actions to publish.
+## 🎛️ Using in StreamElements (two comfy ways)
 
-------------------------------------------------------------------------
+### A) Copy–paste into a Custom Widget
+1. StreamElements → **Overlays** → **Edit** your overlay.
+2. Add **Custom Widget** (or open one) → **Open Editor**.
+3. Paste `dist/widget.html`, `dist/widget.css`, `dist/widget.js` into their tabs.
+4. `dist/manifest.json` (generated from `src/fields.json`) defines your settings UI.
 
-##  Contributing
+### B) Start from the ZIP
+Unzip and paste those four files like option A. meowdelicious~
 
-- Fork and clone the repo.
-- Run lint/tests before committing.
-- Use Changesets for version bumps.
-- Open a PR to `main`.
+---
 
+## 🧼 Lint & Test (clean kitties only)
+```bash
+pnpm lint          # ESLint
+pnpm lint:fix      # Autofix
+pnpm test          # Vitest
+pnpm test:watch    # Watch mode
+pnpm test:cov      # Coverage
+```
+Lint vibes:
+- `console.log` is banned; use `console.warn` or `console.error` (no messy litter).
+- `dist/` and `coverage/` are ignored during linting.
 
-------------------------------------------------------------------------
-## 😺 FAQ
+---
 
-**Q: Do I need pnpm to use this repo?**  
-A: Yes~! This monorepo is set up with pnpm workspaces. Make sure you install [pnpm](https://pnpm.io/) before running commands.
+## 🚀 Releasing (meow-deploys)
+- On pushes to `main` with pending **Changesets**, CI opens/updates a **Version PR**.
+- Merge the Version PR to land bumps.
+- A separate **tag-based release** job can attach your built ZIPs to the GitHub Release.
+- NPM publishing is opt-in (set `NPM_TOKEN` and enable in your workflow if you want).
 
-**Q: How do I add a new widget?**  
-A: Create a folder under `packages/`, add `src/`, `manifest.json`, and `demo/`. Run `pnpm build` to generate its zip.
+---
 
-**Q: Where do the built zips go?**  
-A: Each widget outputs to its own `dist/` folder (e.g. `packages/chat-bubbles/dist/`).
+## ❓ FAQ (curiosity didn’t kill this cat)
 
-**Q: Can I customize widget fields in StreamElements?**  
-A: Yep! Fields are defined in `manifest.json`. They’ll show up in the StreamElements overlay editor.
+**Why is there another `*.js` in `dist/`?**  
+That’s your package’s library bundle (e.g., IIFE/UMD exposing `window.ChatBubbles`). The ZIP **only** includes `widget.html/css/js` and `manifest.json` on purpose.
 
-**Q: How do updates get released?**  
-A: Make a changeset with `pnpm changeset`, merge to `main`, and GitHub Actions will handle versioning + releases.
+**Where do I edit the settings UI?**  
+Change **`packages/<name>/src/fields.json`**. The build maps it to **`dist/manifest.json`** for StreamElements compatibility.
 
-**Q: Can I fork and make my own neko widgets?**  
-A: Of course~! It’s MIT licensed. Just keep the neko spirit alive 🐾.
+**Assets (images/fonts)?**  
+Put them under `packages/<name>/src/assets/` and reference in your widget. We can extend the zip whitelist to include `assets/` if needed. just say nyah~
 
-------------------------------------------------------------------------
+---
 
-## 💖 License
+## 🐱 Contributing (scritches appreciated)
+1. Branch from `main`.
+2. Edit files in `packages/<widget>/src/`.
+3. `pnpm build` (and optionally `node scripts/build-zip.mjs <widget>` to test the zip).
+4. `pnpm lint && pnpm test`
+5. Open a PR—purrs guaranteed.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) © 2025 [nekolessi](https://github.com/nekolessi) — steal responsibly (with credit!), just keep it fluffy 🐾
+---
+
+## ✨ Notes
+- **pnpm** workspaces + **Turbo**: use `pnpm` (and `--filter`) for per-package ops.
+- Versioning via **Changesets**. Add a changeset locally:
+  ```bash
+  pnpm dlx @changesets/cli add
+  ```
+
+---
+
+made with ❤️, whiskers, and a dangerous amount of caffeine.
