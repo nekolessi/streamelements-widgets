@@ -36,7 +36,7 @@ out/
 
 # Optional lockfiles (pick one package manager)
 # If you're only using npm, ignore pnpm/yarn locks
-# pnpm-lock.yaml
+pnpm-lock.yaml
 yarn.lock
 
 # Misc
