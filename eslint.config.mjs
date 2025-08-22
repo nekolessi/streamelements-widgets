@@ -6,6 +6,17 @@ import tsPlugin from '@typescript-eslint/eslint-plugin';
 
 export default [
   js.configs.recommended,
+  { ignores: ['coverage/**', 'dist/**', 'packages/**/dist/**', 'node_modules/**'] },
+  {
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error',
+    },
+    rules: {
+      // Treat warnings as warnings only, not errors in CI
+      'no-warning-comments': 'warn',
+    },
+  },
+
   {
     plugins: { import: pluginImport },
     languageOptions: {
