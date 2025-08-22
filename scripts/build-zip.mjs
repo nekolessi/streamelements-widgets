@@ -98,8 +98,8 @@ try {
     execSync(`7z a -tzip "${zipPath}" ${rels}`, { cwd: distPath, stdio: 'inherit' });
   } else if (hasTool('zip')) {
     // Run zip with only the whitelisted files
-    const rels = filesToZip.map(f => path.relative(distPath, f)).join(' ');
-    execSync(`zip -r "${zipPath}" ${rels}`, { cwd: distPath, stdio: 'inherit' });
+    const rels = filesToZip.map(f => path.relative(distPath, f));
+    execFileSync('zip', ['-r', zipPath, ...rels], { cwd: distPath, stdio: 'inherit' });
   } else if (process.platform === 'win32') {
     // PowerShell Compress-Archive with explicit file list
     const psList = filesToZip.map(f => `"${f.replace(/\\/g, '\\\\')}"`).join(',');
