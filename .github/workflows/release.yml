@@ -46,7 +46,7 @@ jobs:
             echo "has_changesets=false" >> $GITHUB_OUTPUT
           fi
 
-- name: Create Release PR or Publish
+      - name: Create Release PR or Publish
         if: steps.detect_changesets.outputs.has_changesets == 'true'
         uses: changesets/action@v1
         with:
