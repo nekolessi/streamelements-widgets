@@ -63,45 +63,45 @@ function stageWidgetFiles() {
 }
 
 function hasTool(cmd) {
-  try {
-    if (process.platform === 'win32') {
-      execSync(`where ${cmd}`, { stdio: 'ignore' });
-    } else {
-      execSync(`command -v ${cmd}`, { stdio: 'ignore' });
-    }
-    return true;
-  } catch {
-    return false;
+  
+  // 2) Build whitelist of files to include in the zip (only widget artifacts)
+  const candidates = ['widget.html', 'widget.css', 'widget.js', 'manifest.json'];
+  const filesToZip = candidates
+    .map(f => path.join(distPath, f))
+    .filter(f => fs.existsSync(f));
+
+  if (filesToZip.length === 0) {
+    throw new Error(`No widget files found in ${distPath}. Expected one of: ${candidates.join(', ')}`);
   }
-}
 
-try {
-  // 1) Stage files
-  stageWidgetFiles();
-
-  // 2) Remove any old zip
+  // 3) Remove any old zip
   if (fs.existsSync(zipPath)) {
     fs.rmSync(zipPath, { force: true });
   }
 
-  // 3) Zip dist
+  // 4) Zip (whitelist only)
   if (hasTool('7z')) {
-    execSync(`7z a -tzip "${zipPath}" "*"`,
-      { cwd: distPath, stdio: 'inherit' });
+    // Run 7z with only the whitelisted files
+    const rels = filesToZip.map(f => path.relative(distPath, f)).join('" "');
+    execSync(`7z a -tzip "${zipPath}" "${rels}"`, { cwd: distPath, stdio: 'inherit' });
   } else if (hasTool('zip')) {
-    execSync(`zip -r "${zipPath}" .`, { cwd: distPath, stdio: 'inherit' });
+    // Run zip with only the whitelisted files
+    const rels = filesToZip.map(f => path.relative(distPath, f)).join(' ');
+    execSync(`zip -r "${zipPath}" ${rels}`, { cwd: distPath, stdio: 'inherit' });
   } else if (process.platform === 'win32') {
+    // PowerShell Compress-Archive with explicit file list
+    // Build a comma-separated -Path list with quoted absolute paths
+    const psList = filesToZip.map(f => `"${f.replace(/\/g, '\\')}"`).join(',');
     const psArgs = [
       '-NoProfile',
       '-Command',
-      `Compress-Archive -Path "${distPath}\\*" -DestinationPath "${zipPath}" -Force`
+      `Compress-Archive -Path ${psList} -DestinationPath "${zipPath}" -Force`
     ];
     execFileSync('powershell.exe', psArgs, { stdio: 'inherit' });
   } else {
     throw new Error('No zip tool found (tried 7z/zip). Install 7-Zip or zip.');
   }
-
-  console.warn(`Zipped ${widgetName} to ${zipPath}`);
+console.warn(`Zipped ${widgetName} to ${zipPath}`);
 } catch (e) {
   console.error('Error while creating zip:', e);
   process.exit(1);
