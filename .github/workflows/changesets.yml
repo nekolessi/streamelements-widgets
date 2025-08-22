@@ -38,8 +38,8 @@ jobs:
       - name: Create Version PR
         uses: changesets/action@v1
         with:
-          # Pass only the CLI; the action appends "version" internally
-          version: pnpm dlx @changesets/cli
+          # Run the non-interactive version subcommand
+          version: pnpm dlx changeset version
           commit: "chore: version packages"
           title: "chore: version packages"
         env:
