@@ -40,17 +40,26 @@ function copyIfExists(from, to) {
 }
 
 // Copy required widget files into dist prior to zipping
+
 function stageWidgetFiles() {
   ensureDir(distPath);
 
-  // Always try to copy manifest.json from package root
-  copyIfExists(path.join(pkgDir, 'manifest.json'), path.join(distPath, 'manifest.json'));
+  // Prefer src/fields.json (rename to manifest.json in dist); fallback to package-level manifest.json
+  const fieldsJson = path.join(srcDir, 'fields.json');
+  const pkgManifest = path.join(pkgDir, 'manifest.json');
+  const distManifest = path.join(distPath, 'manifest.json');
+
+  if (!copyIfExists(fieldsJson, distManifest)) {
+    copyIfExists(pkgManifest, distManifest);
+  }
 
   // Copy core widget files from src/
   const wanted = ['widget.html', 'widget.css', 'widget.js'];
   for (const f of wanted) {
     copyIfExists(path.join(srcDir, f), path.join(distPath, f));
   }
+}
+
 }
 
 function hasTool(cmd) {

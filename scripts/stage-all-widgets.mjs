@@ -26,18 +26,30 @@ function stagePackage(pkgPath) {
   const name = path.basename(pkgPath);
   const srcDir = path.join(pkgPath, 'src');
   const distDir = path.join(pkgPath, 'dist');
+  ensureDir(distDir);
 
-  const files = [
-    { from: path.join(srcDir, 'widget.html'), to: path.join(distDir, 'widget.html') },
-    { from: path.join(srcDir, 'widget.css'),  to: path.join(distDir, 'widget.css')  },
-    { from: path.join(srcDir, 'widget.js'),   to: path.join(distDir, 'widget.js')   },
-    { from: path.join(pkgPath, 'manifest.json'), to: path.join(distDir, 'manifest.json') },
-  ];
+  // Prefer src/fields.json, copy as dist/manifest.json; fallback to package-level manifest.json
+  const fieldsJson = path.join(srcDir, 'fields.json');
+  const pkgManifest = path.join(pkgPath, 'manifest.json');
+  const distManifest = path.join(distDir, 'manifest.json');
 
   let touched = 0;
-  for (const f of files) {
-    if (copyIfExists(f.from, f.to)) touched++;
+  if (copyIfExists(fieldsJson, distManifest)) {
+    touched++;
+  } else if (copyIfExists(pkgManifest, distManifest)) {
+    touched++;
+  } else {
+    console.warn(`⚠ No fields.json (src) or manifest.json (package root) for ${name}`);
   }
+
+  // Copy core widget files from src/
+  const wanted = ['widget.html', 'widget.css', 'widget.js'];
+  for (const f of wanted) {
+    if (copyIfExists(path.join(srcDir, f), path.join(distDir, f))) {
+      touched++;
+    }
+  }
+
   if (touched > 0) {
     console.log(`→ staged ${touched} file(s) for ${name}`);
   }
