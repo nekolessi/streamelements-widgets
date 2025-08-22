@@ -1,0 +1,53 @@
+# .github/workflows/pages.yml
+name: Build & Deploy Docs
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build                 # build packages with Turbo
+
+      - name: Copy demos to docs
+        run: |
+          mkdir -p docs
+          for pkg in packages/*; do
+            if [ -d "$pkg/demo" ]; then
+              name=$(basename "$pkg")
+              mkdir -p "docs/$name"
+              cp -r "$pkg/demo/"* "docs/$name/"
+            fi
+          done
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
