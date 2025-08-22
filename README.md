@@ -92,13 +92,22 @@ README.md     # widget-specific docs
 
 ##  Tooling
 
-- Lint: pnpm lint
-- Format: pnpm lint:fix
-- Test: pnpm test or pnpm test:watch
-- Release: pnpm changeset → merge → tag (vX.Y.Z) for GitHub Actions to publish.
+- Lint: `pnpm lint`
+- Format: `pnpm lint:fix`
+- Test: `pnpm test` or `pnpm test:watch`
+- Release: `pnpm changeset` → merge → tag (`vX.Y.Z`) for GitHub Actions to publish.
 
 ------------------------------------------------------------------------
 
+##  Contributing
+
+- Fork and clone the repo.
+- Run lint/tests before committing.
+- Use Changesets for version bumps.
+- Open a PR to `main`.
+
+
+------------------------------------------------------------------------
 ## 😺 FAQ
 
 **Q: Do I need pnpm to use this repo?**  
