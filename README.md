@@ -36,7 +36,7 @@
 
 ##  Quick Install & Play (nya~)
 
-##  Requirements
+Requirements
 
 - Node.js ≥18
 - pnpm ≥10 (repository uses pnpm workspace features)
