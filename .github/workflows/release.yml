@@ -1,15 +1,23 @@
-name: Release Widgets
+name: Release (tagged)
+
 on:
   push:
-    branches: [main]
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
 
 jobs:
-  build-release:
+  release:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
         with:
           version: 9
 
@@ -17,25 +25,56 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: "pnpm"
 
-      - name: Install
-        run: pnpm install --frozen-lockfile
-
-      - name: Build all widgets
-        run: pnpm build
-
-      - name: Collect artifacts
+      - name: Install deps
         run: |
-          mkdir -p artifacts
-          find packages -type f -name "*.zip" -exec cp {} artifacts/ \;
+          pnpm --version
+          pnpm install --frozen-lockfile || pnpm install
+
+      - name: Build (workspace if available)
+        run: |
+          # Try recursive build for monorepos, fallback to project build
+          pnpm -r run build || pnpm run build || true
+
+      - name: Prepare release zips
+        shell: bash
+        run: |
+          set -e
+          mkdir -p release-zips
+
+          # Helper to normalize package names (@scope/name -> scope-name)
+          normalize() {
+            echo "$1" | sed -e 's/@//g' -e 's#/#-#g'
+          }
+
+          # If it's a monorepo, try to zip each package directory
+          if [ -d "packages" ]; then
+            for pkg in packages/*; do
+              if [ -f "$pkg/package.json" ]; then
+                name=$(node -e "console.log(require('./$pkg/package.json').name || require('path').basename('$pkg'))" 2>/dev/null || basename "$pkg")
+                norm=$(normalize "$name")
+                # Prefer zipping built output if it exists; otherwise zip the package (excluding heavy dirs)
+                if [ -d "$pkg/dist" ]; then
+                  (cd "$pkg" && zip -r "../release-zips/${norm}.zip" "dist" -x "node_modules/*" ".git/*" || true)
+                else
+                  zip -r "release-zips/${norm}.zip" "$pkg" -x "*/node_modules/*" "*/.git/*" || true
+                fi
+              fi
+            done
+          fi
+
+          # Always include a repo-wide zip as a fallback
+          zip -r "release-zips/repository.zip" . -x ".git/*" "node_modules/*" "packages/*/node_modules/*" || true
+
+          echo "Zipped files:"
+          ls -la release-zips || true
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-        if: ${{ always() }}
         with:
-          tag_name: v${{ github.run_number }}
-          name: Widget Release ${{ github.run_number }}
-          files: artifacts/*.zip
+          files: release-zips/*.zip
+          generate_release_notes: true
+          fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
