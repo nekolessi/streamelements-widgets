@@ -3,13 +3,9 @@
 > vite build
 
 [36mvite v7.1.3 [32mbuilding for production...[36m[39m
-[32m✓[39m 0 modules transformed.
-[31m✗[39m Build failed in 11ms
-[31merror during build:
-[31mCould not resolve entry module "index.html".[31m
-    at getRollupError (file:///C:/Users/GamingPC/streamelements-widgets/node_modules/.pnpm/rollup@4.47.1/node_modules/rollup/dist/es/shared/parseAst.js:401:41)
-    at error (file:///C:/Users/GamingPC/streamelements-widgets/node_modules/.pnpm/rollup@4.47.1/node_modules/rollup/dist/es/shared/parseAst.js:397:42)
-    at ModuleLoader.loadEntryModule (file:///C:/Users/GamingPC/streamelements-widgets/node_modules/.pnpm/rollup@4.47.1/node_modules/rollup/dist/es/shared/node-entry.js:21508:20)
-    at async Promise.all (index 0)[39m
- ELIFECYCLE  Command failed with exit code 1.
- WARN   Local package.json exists, but node_modules missing, did you mean to install?
+transforming...
+[32m✓[39m 1 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[36mchat-bubbles.js  [39m[1m[2m1.06 kB[22m[1m[22m[2m │ gzip: 0.57 kB[22m
+[32m✓ built in 50ms[39m
