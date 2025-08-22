@@ -1,12 +1,12 @@
-# 🐾 Neko Widgets — meow-norepo (StreamElements) 🐱✨
+# 🐾 Neko's Widgets (StreamElements) 🐱✨
 
-> nyah~ welcome to my cozy widget den! this repo houses custom **StreamElements** widgets, bundled as a pnpm workspace. primary cutie right now: **Chat Bubbles** (`@nekolessi/chat-bubbles`). purr-fect for making your chat pop~
+> Welcome to my cozy widget den! This repo houses custom **StreamElements** widgets, bundled as a pnpm workspace.
 
-Built with: **pnpm workspaces**, **Turbo** (build orchestration), **ESLint** (no naughty `console.log`, only `warn`/`error`), **Vitest**, and **Changesets** + GitHub Actions for release magic. mrow~
+Built with: **pnpm workspaces**, **Turbo** (build orchestration), **ESLint** (no naughty `console.log`, only `warn`/`error`), **Vitest**, and **Changesets** + GitHub Actions for release magic. nya~
 
 ---
 
-## 💖 Requirements (pet these first)
+## 💖 Requirements
 - **Node.js 20+**
 - **pnpm 10.x** (`"packageManager": "pnpm@10.x"` is set)
 - macOS / Linux / Windows all welcome :3
@@ -15,7 +15,7 @@ Built with: **pnpm workspaces**, **Turbo** (build orchestration), **ESLint** (no
 
 ---
 
-## 🧶 Project yarn-ball (structure)
+## 🧶 Project (structure)
 ```
 .
 ├─ packages/
@@ -40,7 +40,7 @@ Built with: **pnpm workspaces**, **Turbo** (build orchestration), **ESLint** (no
 
 ---
 
-## 🐾 Install (treats for dependencies)
+## 🐾 Install
 ```bash
 pnpm install
 ```
@@ -49,7 +49,7 @@ This is a workspace, so deps get installed once and shared where needed. no hair
 
 ---
 
-## 🛠️ Build (make it meowgical)
+## 🛠️ Build
 ### All packages
 ```bash
 pnpm build
@@ -105,7 +105,7 @@ Unzip and paste those four files like option A. meowdelicious~
 
 ---
 
-## 🧼 Lint & Test (clean kitties only)
+## 🧼 Lint & Test
 ```bash
 pnpm lint          # ESLint
 pnpm lint:fix      # Autofix
@@ -127,7 +127,7 @@ Lint vibes:
 
 ---
 
-## ❓ FAQ (curiosity didn’t kill this cat)
+## ❓ FAQ
 
 **Why is there another `*.js` in `dist/`?**  
 That’s your package’s library bundle (e.g., IIFE/UMD exposing `window.ChatBubbles`). The ZIP **only** includes `widget.html/css/js` and `manifest.json` on purpose.
@@ -140,7 +140,7 @@ Put them under `packages/<name>/src/assets/` and reference in your widget. We ca
 
 ---
 
-## 🐱 Contributing (scritches appreciated)
+## 🐱 Contributing (headpats appreciated)
 1. Branch from `main`.
 2. Edit files in `packages/<widget>/src/`.
 3. `pnpm build` (and optionally `node scripts/build-zip.mjs <widget>` to test the zip).
@@ -157,5 +157,4 @@ Put them under `packages/<name>/src/assets/` and reference in your widget. We ca
   ```
 
 ---
-
-made with ❤️, whiskers, and a dangerous amount of caffeine.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) © 2025 [nekolessi](https://github.com/nekolessi) made with ❤️, whiskers, and a dangerous amount of caffeine.
