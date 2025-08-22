@@ -1,3 +1,5 @@
+[![Branch:main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)  [![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 # 🐾 Neko's Widgets (StreamElements) 🐱✨
 
 > Welcome to my cozy widget den! This repo houses custom **StreamElements** widgets, bundled as a pnpm workspace.
@@ -11,7 +13,7 @@ Built with: **pnpm workspaces**, **Turbo** (build orchestration), **ESLint** (no
 - **pnpm 10.x** (`"packageManager": "pnpm@10.x"` is set)
 - macOS / Linux / Windows all welcome :3
 
-> first time here? install Node 20 + pnpm, then run `pnpm install` in the repo root. easy peasy, kitty squeezy~
+> First time here? install Node 20 + pnpm, then run `pnpm install` in the repo root. easy peasy, kitty squeezy~
 
 ---
 
@@ -157,4 +159,4 @@ Put them under `packages/<name>/src/assets/` and reference in your widget. We ca
   ```
 
 ---
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) © 2025 [nekolessi](https://github.com/nekolessi) made with ❤️, whiskers, and a dangerous amount of caffeine.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) © 2025 [nekolessi](https://github.com/nekolessi) made with ❤️ and a dangerous amount of caffeine.
