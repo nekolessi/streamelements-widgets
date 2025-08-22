@@ -16,7 +16,7 @@
     "test:cov": "node node_modules/vitest/vitest.mjs run --coverage"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.0",
+    "@changesets/cli": "^2.29.6",
     "@eslint/js": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
     "@typescript-eslint/parser": "^8.40.0",
