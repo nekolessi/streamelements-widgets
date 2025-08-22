@@ -92,10 +92,10 @@ README.md     # widget-specific docs
 
 ##  Tooling
 
-    Lint: pnpm lint
-    Format: pnpm lint:fix
-    Test: pnpm test or pnpm test:watch
-    Release: pnpm changeset → merge → tag (vX.Y.Z) for GitHub Actions to publish.
+- Lint: pnpm lint
+- Format: pnpm lint:fix
+- Test: pnpm test or pnpm test:watch
+- Release: pnpm changeset → merge → tag (vX.Y.Z) for GitHub Actions to publish.
 
 ------------------------------------------------------------------------
 
