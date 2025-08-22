@@ -1,65 +1,41 @@
-#!/usr/bin/env node
-/**
- * Simple build script:
- * - Reads manifest.json for id/version
- * - Copies src/* to a temp build dir
- * - Optionally minifies (left as-is for simplicity)
- * - Zips to dist/<id>-v<version>.zip
- */
+import child_process from 'child_process';
 import fs from 'fs';
-import path from 'path';
-import { execSync } from 'child_process';
 import os from 'os';
+import path from 'path';
 
-function copyDir(src, dest) {
-  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
-  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
-    const s = path.join(src, entry.name);
-    const d = path.join(dest, entry.name);
-    if (entry.isDirectory()) {
-      copyDir(s, d);
-    } else {
-      fs.copyFileSync(s, d);
-    }
-  }
+const widgetName = process.argv[2];
+if (!widgetName) {
+  console.error('Usage: npm run build-zip <widget-name>');
+  process.exit(1);
 }
 
-(async function main() {
-  const pkgDir = process.cwd();
-  const manifestPath = path.join(pkgDir, 'manifest.json');
-  if (!fs.existsSync(manifestPath)) {
-    console.error('manifest.json not found');
-    process.exit(1);
+const widgetPath = path.join('packages', widgetName);
+if (!fs.existsSync(widgetPath)) {
+  console.error(`Widget ${widgetName} not found`);
+  process.exit(1);
+}
+
+const distPath = path.join(widgetPath, 'dist');
+if (!fs.existsSync(distPath)) {
+  console.error(`Build output not found for ${widgetName}. Run npm run build first.`);
+  process.exit(1);
+}
+
+const zipName = `${widgetName}.zip`;
+const zipPath = path.join(os.tmpdir(), zipName);
+
+try {
+  // clean old zip if exists
+  if (fs.existsSync(zipPath)) {
+    fs.unlinkSync(zipPath);
   }
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-  const id = manifest.id || manifest.name || 'widget';
-  const version = manifest.version || '0.0.0';
-  const srcDir = path.join(pkgDir, 'src');
-  const distDir = path.join(pkgDir, 'dist');
 
-  if (!fs.existsSync(srcDir)) {
-    console.error('src/ not found');
-    process.exit(1);
-  }
-  if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
+  // use 7z if available
+  const cmd = `7z a -tzip "${zipPath}" "${distPath}/*"`;
+  child_process.execSync(cmd, { stdio: 'inherit' });
 
-  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), `${id}-build-`));
-  copyDir(srcDir, tmpDir);
-
-  // Create zip with system zip if available
-  const zipName = `${id}-v${version}.zip`;
-  const zipPath = path.join(distDir, zipName);
-  const zipCmd = process.platform === 'win32'
-    ? `powershell -NoLogo -NoProfile -Command "Compress-Archive -Path \"${tmpDir}/*\" -DestinationPath \"${zipPath}\" -Force"`
-    : `cd "${tmpDir}" && zip -qr "${zipPath}" .`;
-
-  try {
-    execSync(zipCmd, { stdio: 'inherit' });
-    console.log('Built:', zipPath);
-  } catch (e) {
-    console.error('Zip failed. Ensure zip (or PowerShell) is available.');
-    process.exitCode = 1;
-  } finally {
-    fs.rmSync(tmpDir, { recursive: true, force: true });
-  }
-})();
+  console.warn(`Zipped ${widgetName} to ${zipPath}`);
+} catch (e) {
+  console.error('Error while creating zip:', e);
+  process.exit(1);
+}
