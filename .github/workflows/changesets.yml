@@ -39,7 +39,7 @@ jobs:
         uses: changesets/action@v1
         with:
           # Run the non-interactive version subcommand
-          version: pnpm dlx @changesets/cli changeset version
+          version: pnpm dlx @changesets/cli version
           commit: "chore: version packages"
           title: "chore: version packages"
         env:
