@@ -36,6 +36,7 @@ jobs:
           git clean -fdx
 
       - name: Create Version PR
+        if: steps.detect_changesets.outputs.has_changesets == 'true'
         uses: changesets/action@v1
         with:
           # Run the non-interactive version subcommand

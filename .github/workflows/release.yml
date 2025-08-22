@@ -35,7 +35,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Create Release PR or Publish
+      - name: Check for pending changesets
+        id: detect_changesets
+        run: |
+          shopt -s nullglob
+          files=(.changeset/*.md)
+          if [ ${#files[@]} -gt 0 ]; then
+            echo "has_changesets=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+          fi
+
+- name: Create Release PR or Publish
+        if: steps.detect_changesets.outputs.has_changesets == 'true'
         uses: changesets/action@v1
         with:
           version: pnpm dlx @changesets/cli version
