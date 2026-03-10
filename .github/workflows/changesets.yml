@@ -29,17 +29,22 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile || pnpm install
 
-      # Ensure a clean worktree so the action can switch branches safely
-      - name: Clean working tree
+      - name: Detect pending changesets
+        id: detect_changesets
+        shell: bash
         run: |
-          git reset --hard
-          git clean -fdx
+          shopt -s nullglob
+          files=(.changeset/*.md)
+          if [ ${#files[@]} -gt 0 ]; then
+            echo "has_changesets=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changesets=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Create Version PR
         if: steps.detect_changesets.outputs.has_changesets == 'true'
         uses: changesets/action@v1
         with:
-          # Run the non-interactive version subcommand
           version: pnpm dlx @changesets/cli version
           commit: "chore: version packages"
           title: "chore: version packages"
@@ -47,3 +52,7 @@ jobs:
           # If org policy blocks GITHUB_TOKEN PRs, replace with a PAT secret:
           # GITHUB_TOKEN: ${{ secrets.CHANGESET_PAT }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: No pending changesets
+        if: steps.detect_changesets.outputs.has_changesets != 'true'
+        run: echo "No pending changesets found."

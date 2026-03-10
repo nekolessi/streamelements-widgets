@@ -29,8 +29,7 @@ Cute neko-styled chat bubbles widget for StreamElements overlays.
 
 5. **Import into StreamElements**
    - Go to **Overlays → Custom Widget**.
-   - Upload the `chat-bubbles.js` (from `dist/`) or use the ZIP export.
-   - Paste/attach your CSS/HTML as needed for your overlay.
+   - Upload the ZIP export, or paste the four dist files (`widget.html`, `widget.css`, `widget.js`, `manifest.json`) into the StreamElements custom widget editor.
 
 ## Fields
 
@@ -39,3 +38,4 @@ Cute neko-styled chat bubbles widget for StreamElements overlays.
 - **ignoredUsers**: comma-separated names to hide
 
 **Meow-ntenance tip:** bump the version in `manifest.json` when behavior changes.
+
