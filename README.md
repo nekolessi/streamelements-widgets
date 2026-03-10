@@ -1,9 +1,9 @@
-# 🐾 Neko's Widgets (StreamElements) 🐱✨
+﻿# ðŸ¾ Neko's Widgets (StreamElements) ðŸ±âœ¨
 
 <!-- badges: start -->
 [![Branch:main](https://img.shields.io/badge/branch-main-blue.svg)](../../tree/main)
 [![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) 
-[![CI](https://github.com/nekolessi/streamelements-widgets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/nekolessi/streamelements-widgets/actions/workflows/release.yml)
+[![CI](https://github.com/nekolessi/streamelements-widgets/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/nekolessi/streamelements-widgets/actions/workflows/ci.yml)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/nekolessi/streamelements-widgets/issues)
 [![Stars](https://img.shields.io/github/stars/nekolessi/streamelements-widgets?style=flat)](https://github.com/nekolessi/streamelements-widgets/stargazers)
 [![Issues](https://img.shields.io/github/issues/nekolessi/streamelements-widgets)](https://github.com/nekolessi/streamelements-widgets/issues)
@@ -27,41 +27,41 @@ Built with: **pnpm workspaces**, **Turbo** (build orchestration), **ESLint** (no
 
 ---
 
-## 💖 Requirements
+## ðŸ’– Requirements
 - **Node.js 20+**
-- **pnpm 10.x** (`"packageManager": "pnpm@10.x"` is set)
+- **pnpm 10.x** (`"packageManager": "pnpm@10.11.0"` is set)
 - macOS / Linux / Windows all welcome :3
 
 > First time here? install Node 20 + pnpm, then run `pnpm install` in the repo root. easy peasy, kitty squeezy~
 
 ---
 
-## 🧶 Project (structure)
+## ðŸ§¶ Project (structure)
 ```
 .
-├─ packages/
-│  └─ chat-bubbles/
-│     ├─ src/
-│     │  ├─ widget.html
-│     │  ├─ widget.css
-│     │  ├─ widget.js
-│     │  └─ fields.json   # source of widget fields; becomes dist/manifest.json
-│     └─ dist/
-│        ├─ widget.html
-│        ├─ widget.css
-│        ├─ widget.js
-│        └─ manifest.json
-├─ scripts/
-│  ├─ build-zip.mjs         # zips only widget.html|css|js|manifest.json (whitelist)
-│  └─ stage-all-widgets.mjs # copies src/* + maps fields.json -> dist/manifest.json
-├─ eslint.config.mjs
-├─ package.json
-└─ turbo.json (if present)
+â”œâ”€ packages/
+â”‚  â””â”€ chat-bubbles/
+â”‚     â”œâ”€ src/
+â”‚     â”‚  â”œâ”€ widget.html
+â”‚     â”‚  â”œâ”€ widget.css
+â”‚     â”‚  â”œâ”€ widget.js
+â”‚     â”‚  â””â”€ fields.json   # source of widget fields; becomes dist/manifest.json
+â”‚     â””â”€ dist/
+â”‚        â”œâ”€ widget.html
+â”‚        â”œâ”€ widget.css
+â”‚        â”œâ”€ widget.js
+â”‚        â””â”€ manifest.json
+â”œâ”€ scripts/
+â”‚  â”œâ”€ build-zip.mjs         # zips only widget.html|css|js|manifest.json (whitelist)
+â”‚  â””â”€ stage-all-widgets.mjs # copies src/* + maps fields.json -> dist/manifest.json
+â”œâ”€ eslint.config.mjs
+â”œâ”€ package.json
+â””â”€ turbo.json (if present)
 ```
 
 ---
 
-## 🐾 Install
+## ðŸ¾ Install
 ```bash
 pnpm install
 ```
@@ -70,7 +70,7 @@ This is a workspace, so deps get installed once and shared where needed. no hair
 
 ---
 
-## 🛠️ Build
+## ðŸ› ï¸ Build
 ### All packages
 ```bash
 pnpm build
@@ -81,8 +81,8 @@ node scripts/stage-all-widgets.mjs
 ```
 What it does:
 - ensures each `packages/*/dist/` exists
-- copies `src/widget.html`, `src/widget.css`, `src/widget.js` → `dist/`
-- **maps** `src/fields.json` → `dist/manifest.json` (so StreamElements purrs happily)
+- copies `src/widget.html`, `src/widget.css`, `src/widget.js` â†’ `dist/`
+- **maps** `src/fields.json` â†’ `dist/manifest.json` (so StreamElements purrs happily)
 
 ### Single package
 ```bash
@@ -93,7 +93,7 @@ node scripts/stage-all-widgets.mjs
 
 ---
 
-## 📦 Package a widget (ZIP it up, nya)
+## ðŸ“¦ Package a widget (ZIP it up, nya)
 Create a distributable zip for a package (example: `chat-bubbles`):
 ```bash
 node scripts/build-zip.mjs chat-bubbles
@@ -113,11 +113,11 @@ packages/chat-bubbles/dist/chat-bubbles.zip
 
 ---
 
-## 🎛️ Using in StreamElements (two comfy ways)
+## ðŸŽ›ï¸ Using in StreamElements (two comfy ways)
 
-### A) Copy–paste into a Custom Widget
-1. StreamElements → **Overlays** → **Edit** your overlay.
-2. Add **Custom Widget** (or open one) → **Open Editor**.
+### A) Copyâ€“paste into a Custom Widget
+1. StreamElements â†’ **Overlays** â†’ **Edit** your overlay.
+2. Add **Custom Widget** (or open one) â†’ **Open Editor**.
 3. Paste `dist/widget.html`, `dist/widget.css`, `dist/widget.js` into their tabs.
 4. `dist/manifest.json` (generated from `src/fields.json`) defines your settings UI.
 
@@ -126,7 +126,7 @@ Unzip and paste those four files like option A. meowdelicious~
 
 ---
 
-## 🧼 Lint & Test
+## ðŸ§¼ Lint & Test
 ```bash
 pnpm lint          # ESLint
 pnpm lint:fix      # Autofix
@@ -140,7 +140,7 @@ Lint vibes:
 
 ---
 
-## 🚀 Releasing (meow-deploys)
+## ðŸš€ Releasing (meow-deploys)
 - On pushes to `main` with pending **Changesets**, CI opens/updates a **Version PR**.
 - Merge the Version PR to land bumps.
 - A separate **tag-based release** job can attach your built ZIPs to the GitHub Release.
@@ -148,10 +148,10 @@ Lint vibes:
 
 ---
 
-## ❓ FAQ
+## â“ FAQ
 
 **Why is there another `*.js` in `dist/`?**  
-That’s your package’s library bundle (e.g., IIFE/UMD exposing `window.ChatBubbles`). The ZIP **only** includes `widget.html/css/js` and `manifest.json` on purpose.
+Thatâ€™s your packageâ€™s library bundle (e.g., IIFE/UMD exposing `window.ChatBubbles`). The ZIP **only** includes `widget.html/css/js` and `manifest.json` on purpose.
 
 **Where do I edit the settings UI?**  
 Change **`packages/<name>/src/fields.json`**. The build maps it to **`dist/manifest.json`** for StreamElements compatibility.
@@ -161,16 +161,16 @@ Put them under `packages/<name>/src/assets/` and reference in your widget. We ca
 
 ---
 
-## 🐱 Contributing (headpats appreciated)
+## ðŸ± Contributing (headpats appreciated)
 1. Branch from `main`.
 2. Edit files in `packages/<widget>/src/`.
 3. `pnpm build` (and optionally `node scripts/build-zip.mjs <widget>` to test the zip).
-4. `pnpm lint && pnpm test`
-5. Open a PR—purrs guaranteed.
+4. Run `pnpm lint` and `pnpm test`.
+5. Open a PRâ€”purrs guaranteed.
 
 ---
 
-## ✨ Notes
+## âœ¨ Notes
 - **pnpm** workspaces + **Turbo**: use `pnpm` (and `--filter`) for per-package ops.
 - Versioning via **Changesets**. Add a changeset locally:
   ```bash
@@ -178,4 +178,5 @@ Put them under `packages/<name>/src/assets/` and reference in your widget. We ca
   ```
 
 ---
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) © 2025 [nekolessi](https://github.com/nekolessi) made with ❤️ and a dangerous amount of caffeine.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) Â© 2025 [nekolessi](https://github.com/nekolessi) made with â¤ï¸ and a dangerous amount of caffeine.
+
