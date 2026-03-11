@@ -8,13 +8,15 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "postbuild": "node scripts/stage-all-widgets.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --ext .js,.mjs,.ts,.tsx --fix",
-    "release": "changeset version && changeset publish",
     "test": "node node_modules/vitest/vitest.mjs run",
     "test:watch": "node node_modules/vitest/vitest.mjs",
     "test:cov": "node node_modules/vitest/vitest.mjs run --coverage",
-    "postbuild": "node scripts/stage-all-widgets.mjs"
+    "new:widget": "node scripts/new-widget.mjs",
+    "zip:widget": "node scripts/build-zip.mjs",
+    "release": "changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
