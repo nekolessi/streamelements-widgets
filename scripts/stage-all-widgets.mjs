@@ -17,11 +17,10 @@ function copyIfExists(src, dest) {
   if (fs.existsSync(src)) {
     ensureDir(path.dirname(dest));
     fs.copyFileSync(src, dest);
-    console.warn(`✔ ${path.relative(repoRoot, src)} → ${path.relative(repoRoot, dest)}`);
+    console.warn(`[ok] ${path.relative(repoRoot, src)} -> ${path.relative(repoRoot, dest)}`);
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 function stagePackage(pkgPath) {
@@ -30,30 +29,28 @@ function stagePackage(pkgPath) {
   const distDir = path.join(pkgPath, 'dist');
   ensureDir(distDir);
 
-  // Prefer src/fields.json, copy as dist/manifest.json; fallback to package-level manifest.json
   const fieldsJson = path.join(srcDir, 'fields.json');
   const pkgManifest = path.join(pkgPath, 'manifest.json');
   const distManifest = path.join(distDir, 'manifest.json');
 
   let touched = 0;
   if (copyIfExists(fieldsJson, distManifest)) {
-    touched++;
+    touched += 1;
   } else if (copyIfExists(pkgManifest, distManifest)) {
-    touched++;
+    touched += 1;
   } else {
-    console.warn(`⚠ No fields.json (src) or manifest.json (package root) for ${name}`);
+    console.warn(`[warn] Missing fields.json or manifest.json for ${name}`);
   }
 
-  // Copy core widget files from src/
   const wanted = ['widget.html', 'widget.css', 'widget.js'];
-  for (const f of wanted) {
-    if (copyIfExists(path.join(srcDir, f), path.join(distDir, f))) {
-      touched++;
+  for (const fileName of wanted) {
+    if (copyIfExists(path.join(srcDir, fileName), path.join(distDir, fileName))) {
+      touched += 1;
     }
   }
 
   if (touched > 0) {
-    console.warn(`→ staged ${touched} file(s) for ${name}`);
+    console.warn(`[info] staged ${touched} file(s) for ${name}`);
   }
 }
 
@@ -64,9 +61,9 @@ function main() {
   }
 
   const entries = fs.readdirSync(packagesDir, { withFileTypes: true });
-  for (const ent of entries) {
-    if (ent.isDirectory()) {
-      stagePackage(path.join(packagesDir, ent.name));
+  for (const entry of entries) {
+    if (entry.isDirectory()) {
+      stagePackage(path.join(packagesDir, entry.name));
     }
   }
 }

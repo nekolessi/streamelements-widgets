@@ -5,9 +5,6 @@ name: CI
 
 on:
   push:
-    paths:
-      - 'packages/**'
-      - '.github/workflows/ci.yml'
   pull_request:
 
 jobs:

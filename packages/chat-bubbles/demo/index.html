@@ -1,21 +1,30 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8"><title>Chat Bubbles · Demo</title>
-<link rel="stylesheet" href="../src/widget.css">
-<style>body{background:#111;margin:24px}</style>
-<script>
-  window.SE_SETTINGS = {theme: 'dark', fontSize: 24, ignoredUsers: ['troll']};
-</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat Bubbles - Demo</title>
+  <link rel="stylesheet" href="../src/widget.css" />
+  <style>
+    body { background: #111; margin: 24px; }
+    h1 { color: #fff; }
+  </style>
+  <script>
+    window.SE_SETTINGS = { theme: 'dark', fontSize: 24, ignoredUsers: ['troll'] };
+  </script>
 </head>
 <body>
-  <h1 style="color:#fff;">Chat Bubbles Demo 🐱</h1>
+  <h1>Chat Bubbles Demo</h1>
   <div id="root"></div>
   <script src="../src/widget.js"></script>
   <script>
     setTimeout(() => {
-      window.postMessage({listener:'message', event:{data:{displayName:'Alice', text:'Hello!'}}});
-      window.postMessage({listener:'message', event:{data:{displayName:'troll', text:'You should not see this'}}});
+      window.dispatchEvent(new MessageEvent('message', {
+        data: { listener: 'message', event: { data: { displayName: 'Alice', text: 'Hello!' } } }
+      }));
+      window.dispatchEvent(new MessageEvent('message', {
+        data: { listener: 'message', event: { data: { displayName: 'troll', text: 'You should not see this' } } }
+      }));
     }, 100);
   </script>
 </body>
