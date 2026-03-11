@@ -45,12 +45,7 @@ jobs:
           set -e
           mkdir -p "$DOCS_DIR"
 
-          # 1) Keep the root docs/ landing files (index.html, index.md, etc.) if present
-          #    They should already be in the repo at DOCS_DIR, so nothing to do here.
-
-          # 2) Copy package demos into docs/<normalized-name>/
-          #    - If a package has packages/<id>/demo/, copy it
-          #    - Else if it has packages/<id>/dist/ and contains an index.html, copy that
+          # Copy package demos into docs/<normalized-package-name>/
           normalize() { echo "$1" | sed -e 's/@//g' -e 's#/#-#g'; }
 
           if [ -d "packages" ]; then

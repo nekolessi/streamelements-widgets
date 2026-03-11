@@ -24,7 +24,7 @@
   ],
   "scripts": {
     "build": "vite build",
-    "build:zip": "npm run build && node ../../scripts/build-zip.mjs chat-bubbles",
+    "build:zip": "pnpm run build && node ../../scripts/build-zip.mjs chat-bubbles",
     "zip": "node ../../scripts/build-zip.mjs chat-bubbles",
     "dev": "vite"
   },

@@ -11,7 +11,7 @@ const repoRoot = path.resolve(__dirname, '..'); // parent of scripts/
 // Arg: widget/package name under packages/
 const widgetName = process.argv[2];
 if (!widgetName) {
-  console.error('Usage: pnpm build-zip <widget-name>');
+  console.error('Usage: pnpm zip:widget <widget-name>');
   process.exit(1);
 }
 
@@ -118,3 +118,4 @@ try {
   console.error('Error while creating zip:', e);
   process.exit(1);
 }
+
