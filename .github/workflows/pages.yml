@@ -68,7 +68,7 @@ jobs:
           find "$DOCS_DIR" -maxdepth 2 -type f -name "index.*" -print || true
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ${{ env.DOCS_DIR }}
 
