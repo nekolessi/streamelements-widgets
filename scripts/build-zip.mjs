@@ -1,4 +1,4 @@
-import { execSync, execFileSync } from 'child_process';
+import { execFileSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -15,7 +15,25 @@ if (!widgetName) {
   process.exit(1);
 }
 
+if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(widgetName)) {
+  console.error('Widget name must be lowercase kebab-case (letters, numbers, hyphens).');
+  process.exit(1);
+}
+
+const packagesRoot = path.join(repoRoot, 'packages');
 const pkgDir = path.join(repoRoot, 'packages', widgetName);
+const normalizedPkgDir = path.resolve(pkgDir);
+const normalizedPackagesRoot = `${path.resolve(packagesRoot)}${path.sep}`;
+if (!normalizedPkgDir.startsWith(normalizedPackagesRoot)) {
+  console.error('Invalid widget path.');
+  process.exit(1);
+}
+
+if (!fs.existsSync(pkgDir) || !fs.statSync(pkgDir).isDirectory()) {
+  console.error(`Widget package not found: packages/${widgetName}`);
+  process.exit(1);
+}
+
 const srcDir = path.join(pkgDir, 'src');
 const distPath = path.join(pkgDir, 'dist');
 const zipName = `${widgetName}.zip`;
@@ -62,9 +80,9 @@ function stageWidgetFiles() {
 function hasTool(cmd) {
   try {
     if (process.platform === 'win32') {
-      execSync(`where ${cmd}`, { stdio: 'ignore' });
+      execFileSync('where', [cmd], { stdio: 'ignore' });
     } else {
-      execSync(`command -v ${cmd}`, { stdio: 'ignore' });
+      execFileSync('which', [cmd], { stdio: 'ignore' });
     }
     return true;
   } catch {
@@ -94,11 +112,11 @@ try {
   // 4) Zip (whitelist only)
   if (hasTool('7z')) {
     // Run 7z with only the whitelisted files
-    const rels = filesToZip.map(f => path.relative(distPath, f)).map(s => `"${s}"`).join(' ');
-    execSync(`7z a -tzip "${zipPath}" ${rels}`, { cwd: distPath, stdio: 'inherit' });
+    const rels = filesToZip.map((f) => path.relative(distPath, f));
+    execFileSync('7z', ['a', '-tzip', zipPath, ...rels], { cwd: distPath, stdio: 'inherit' });
   } else if (hasTool('zip')) {
     // Run zip with only the whitelisted files
-    const rels = filesToZip.map(f => path.relative(distPath, f));
+    const rels = filesToZip.map((f) => path.relative(distPath, f));
     execFileSync('zip', ['-r', zipPath, ...rels], { cwd: distPath, stdio: 'inherit' });
   } else if (process.platform === 'win32') {
     // PowerShell Compress-Archive with explicit file list
